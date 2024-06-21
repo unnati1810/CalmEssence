@@ -60,7 +60,7 @@ const LandingPage = () => {
     ];
 
     return (
-            <div className="font-sans antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
 
             <div className=" px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-12 ">
                 <div className="flex flex-wrap justify-center items-center mt-16">
@@ -79,14 +79,14 @@ const LandingPage = () => {
                             meditation is designed to address your unique requirements and promote overall
                             well-being.</p>
                         <button onClick={() => window.location.href = "/signup"}
-                                className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                             Get Started
                         </button>
                     </section>
                 </div>
 
                 <section id="features" className="py-20">
-                    <div className="container mx-auto space-y-16">
+                    <div className="mx-auto space-y-16">
                         {features.map((feature, index) => (
                             <div key={index}
                                  className={`flex flex-col md:flex-row items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
