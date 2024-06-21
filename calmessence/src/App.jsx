@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import  {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Link, Route, Routes,} from 'react-router-dom';
 import LandingPage from './components/LandingPage'; // Adjust path as per your project structure
 import ContactUs from './components/ContactUs';

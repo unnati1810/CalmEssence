@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import meditateImage from '../assets/meditate.png';
@@ -75,7 +75,7 @@ const LandingPage = () => {
                         <p className="text-2xl mb-4">Enhancing Your Mental Well-being with Our Comprehensive Mindfulness
                             Application</p>
                         <p className="text-xl mb-8">Explore our diverse meditation options tailored to your specific
-                            needs, whether you're seeking relaxation, focus, improved sleep, or emotional balance. Each
+                            needs, whether you&apos;re seeking relaxation, focus, improved sleep, or emotional balance. Each
                             meditation is designed to address your unique requirements and promote overall
                             well-being.</p>
                         <button onClick={() => window.location.href = "/signup"}
