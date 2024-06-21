@@ -17,29 +17,29 @@ const LandingPage = () => {
     const features = [
         {
             title: "Meditations",
-            description: "Explore a variety of meditations and mindfulness techniques to enhance your well-being. Whether you're a beginner or an experienced practitioner, find peace and clarity through guided sessions and calming music.",
-            subDescription: "Discover different types of meditation practices tailored to your needs.",
+            description: "Enhance your well-being with a variety of guided meditations and mindfulness techniques. Whether you're starting out or seasoned, our sessions help you find peace and clarity through soothing music and expert guidance.",
+            subDescription: "Explore tailored meditation practices designed for relaxation, focus, better sleep, and emotional balance.",
             image: meditateImage,
             aos: "fade-right",
         },
         {
             title: "Breathing Exercises",
-            description: "Learn different breathing techniques with step-by-step instructions and video/audio guides. Improve your focus and reduce stress with practices like diaphragmatic breathing and box breathing, supported by expert advice.",
-            subDescription: "Practice breathing exercises to enhance relaxation and mental clarity.",
+            description: "Master simple yet effective breathing techniques with our user-friendly guides, designed to promote relaxation and mindfulness in your daily life. These exercises empower you to breathe better, reduce stress, and enhance your overall well-being.",
+            subDescription: "Improve mental clarity and relaxation through guided breathing exercises.",
             image: breathingImage,
             aos: "fade-left",
         },
         {
             title: "Chat with Experts",
-            description: "Request a chat with our experts for personalized advice and support. Connect with certified mindfulness coaches to discuss your goals, receive feedback on your practice, and gain insights into deepening your mindfulness journey.",
-            subDescription: "Get one-on-one guidance from experienced mindfulness experts.",
+            description: "Connect with certified mindfulness coaches for personalized advice and support through our convenient chat feature. Discuss your goals, receive feedback on your practice, and gain insights to enhance your mindfulness journey.",
+            subDescription: "Access one-on-one guidance from experienced mindfulness experts.",
             image: chatImage,
             aos: "fade-right",
         },
         {
             title: "Live Sessions",
-            description: "Join live sessions conducted by experts to learn and practice mindfulness techniques. Engage in interactive sessions, including guided meditations and Q&A sessions, to deepen your understanding and experience of mindfulness.",
-            subDescription: "Participate in real-time mindfulness sessions led by experienced instructors.",
+            description: "Participate in live sessions led by mindfulness professionals to learn and practice mindfulness techniques. Engage in interactive experiences, including guided meditations and Q&A sessions, to deepen your understanding and practice of mindfulness.",
+            subDescription: "Join real-time mindfulness sessions conducted by experienced instructors.",
             image: liveSessionsImage,
             aos: "fade-left",
         },
@@ -52,15 +52,15 @@ const LandingPage = () => {
         },
         {
             title: "User Journal",
-            description: "Keep track of your daily mood swings and thoughts in your personal journal. Reflect on your mindfulness journey, set goals, and track progress towards achieving mental clarity and emotional balance.",
-            subDescription: "Maintain a personal journal to support your mindfulness practice.",
+            description: "Track your daily mood swings and thoughts in your personal journal. Reflect on your mindfulness journey, set goals, and monitor progress towards achieving mental clarity and emotional balance.",
+            subDescription: "Maintain a personal journal to support and enhance your mindfulness practice.",
             image: journalImage,
             aos: "fade-left",
         },
     ];
 
     return (
-            <div className="container font-sans antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="font-sans antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
 
             <div className=" px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-12 ">
                 <div className="flex flex-wrap justify-center items-center mt-16">
