@@ -6,6 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import FAQs from "./components/FAQs.jsx";
 import "../src/index.css"
+import MeditationSearch from './components/Meditations/MeditationSearch.jsx';
 function App() {
 
 
@@ -52,6 +53,7 @@ function App() {
                         <div className={`md:flex flex-grow items-center justify-center ${isOpen ? 'block' : 'hidden'}`}>
                             <div className="text-white md:flex md:justify-end md:space-x-4">
                                 <div className="md:flex items-center justify-end space-x-4">
+                                    <Link to="/meditations" className="block px-4 py-2 text-white font-bold">Meditation</Link>
                                     <Link to="/" className="block px-4 py-2 text-white font-bold">Discover What We
                                         Offer</Link>
                                     <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
@@ -65,6 +67,7 @@ function App() {
 
 
                 <Routes>
+                    <Route path="/meditations" element={<MeditationSearch/>}/>
                     <Route exact path="/" element={<LandingPage/>}/>
                     <Route path="/contact" element={<ContactUs/>}/>
                     <Route path="/faqs" element={<FAQs/>}/>
