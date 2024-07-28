@@ -82,6 +82,8 @@ function App() {
                                     <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
                                     <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
                                 </div>
+                            </div>
+                        </div>
 
                         {/* Avatar / User Icon */}
                         <div className="hidden md:flex items-center">
