@@ -1,63 +1,44 @@
 // Author: Rameez Parkar
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SessionCard from "./SessionCard";
-
-const initialSessions = [
-  { id: 1, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 2, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 3, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 4, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 5, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 6, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 7, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 8, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 9, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 10, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 11, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 12, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 13, title: "Morning Meditation", category: "Morning", rating: 4.5, time: "10 min", thumbnail: "https://via.placeholder.com/150" },
-  { id: 14, title: "Evening Relaxation", category: "Evening", rating: 4.7, time: "20 min", thumbnail: "https://via.placeholder.com/150" },
-];
+import { ClipLoader } from "react-spinners";
+import axios from "axios";
 
 const MeditationSearch = () => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredSessions, setFilteredSessions] = useState(initialSessions);
+    const [filteredSessions, setFilteredSessions] = useState([]);
     const [vocals, setVocals] = useState("");
-    const [rating, setRating] = useState(5);
+    const [rating, setRating] = useState(1);
     const [sessionTime, setSessionTime] = useState("");
     const [sortBy, setSortBy] = useState("");
-  
-    const handleSearch = () => {
-      let results = initialSessions;
-  
-      if (searchTerm) {
-        results = results.filter((session) =>
-          session.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      }
-  
-      if (vocals) {
-        results = results.filter((session) => session.vocals === vocals);
-      }
-  
-      if (rating) {
-        results = results.filter((session) => session.rating <= rating);
-      }
-  
-      if (sessionTime) {
-        results = results.filter((session) => session.time === sessionTime);
-      }
-  
-      if (sortBy) {
-        results = results.sort((a, b) => {
-          if (sortBy === "Rating") return b.rating - a.rating;
-          if (sortBy === "Time") return parseInt(a.time) - parseInt(b.time);
-          return 0;
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        handleFilters();
+    }, []);
+
+    const handleFilters = async () => {
+        setLoading(true);
+        const lengthRange = sessionTime ? `&length_range=${sessionTime}` : ``;
+        const sortOption = sortBy ? `&sort_option=${sortBy}` : ``;
+        const voiceGender = vocals ? `&voice_gender=${vocals}` : ``;
+        const size = '100';
+        const dataUrl = `https://filtering.insighttimer-api.net/api/v1/single-tracks/filter?content_langs=en&device_lang=en${lengthRange}&offset=0&size=${size}${sortOption}${voiceGender}`;
+        let results = await axios.get(dataUrl);
+        results = results.data.map((item) => {
+            return item.item_summary.library_item_summary
         });
-      }
-  
-      setFilteredSessions(results);
+        console.log(results);
+        results = results.filter((session) => session.rating_score >= rating);
+        if (searchTerm.trim()) {
+            setFilteredSessions(results.filter((session) =>
+                session.title.toLowerCase().includes(searchTerm.toLowerCase())
+            ));
+        } else {
+            setFilteredSessions(results);
+        }
+        setLoading(false);
     };
   
     return (
@@ -75,7 +56,7 @@ const MeditationSearch = () => {
                 />
                 <button
                 className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-                onClick={handleSearch}
+                onClick={handleFilters}
                 >
                 Search
                 </button>
@@ -110,7 +91,7 @@ const MeditationSearch = () => {
                             onChange={(e) => setRating(e.target.value)}
                             className="w-full"
                         />
-                        <span>{rating} Stars</span>
+                        <span>{rating}+ Stars</span>
                     </div>
                 </div>
                 
@@ -144,18 +125,56 @@ const MeditationSearch = () => {
             <div className="w-full flex justify-end">
             <button
                 className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
-                onClick={handleSearch}
+                onClick={handleFilters}
                 >
                 Apply Filters
                 </button>
             </div>
           </div>
   
-          <div className="flex overflow-x-auto space-x-4">
-            {filteredSessions.map((session) => (
-              <SessionCard key={session.id} session={session} />
-            ))}
-          </div>
+        {loading ? (
+            <div className="flex justify-center items-center h-64">
+                <ClipLoader size={50} color={"#9333ea"} loading={loading} />
+            </div>
+        ) : (
+            <div>
+                {filteredSessions.filter((item) => {
+                    return item.content_type === "GUIDED";
+                }).length > 0 ? <h6 className="text-lg font-bold">GUIDED</h6> :
+                <div></div>}
+                <div className="flex overflow-x-auto space-x-4 mb-4">
+                    {filteredSessions.filter((item) => {
+                        return item.content_type === "GUIDED";
+                    }).map((session) => (
+                    <SessionCard key={session.id} session={session} />
+                    ))}
+                </div>
+
+                {filteredSessions.filter((item) => {
+                    return item.content_type === "MUSIC";
+                }).length > 0 ? <h6 className="text-lg font-bold">MUSIC</h6> :
+                <div></div>}
+                <div className="flex overflow-x-auto space-x-4 mb-4">
+                    {filteredSessions.filter((item) => {
+                        return item.content_type === "MUSIC";
+                    }).map((session) => (
+                    <SessionCard key={session.id} session={session} />
+                    ))}
+                </div>
+
+                {filteredSessions.filter((item) => {
+                    return item.content_type === "TALKS";
+                }).length > 0 ? <h6 className="text-lg font-bold">TALKS</h6> :
+                <div></div>}
+                <div className="flex overflow-x-auto space-x-4 mb-4">
+                    {filteredSessions.filter((item) => {
+                        return item.content_type === "TALKS";
+                    }).map((session) => (
+                    <SessionCard key={session.id} session={session} />
+                    ))}
+                </div>
+            </div>
+        )}
         </div>
       </div>
     );
