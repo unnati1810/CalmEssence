@@ -16,6 +16,8 @@ import ArticleDetail from "./components/ArticleDetail.jsx";
 import CreateArticle from "./components/CreateArticle.jsx";
 import contactImage from './assets/logo.png';
 
+import AuthPage from './components/Signup.jsx';
+import ForgotPasswordPage from './components/ForgotPassword.jsx';
 function App() {
 
     const [sticky, setSticky] = useState(false);
@@ -72,13 +74,14 @@ function App() {
                                 </svg>
                             </button>
                         </div>
-
-                        {/* Navbar Links */}
-                        <div className={`md:flex flex-grow items-center justify-center space-x-4 ${isOpen ? 'block' : 'hidden'}`}>
-                            <Link to="/" className="block px-4 py-2 text-white font-bold">Discover What We Offer</Link>
-                            <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
-                            <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
-                        </div>
+                        <div className={`md:flex flex-grow items-center justify-end ${isOpen ? 'block' : 'hidden'}`}>
+                            <div className="text-white md:flex md:justify-end md:space-x-4">
+                                <div className="md:flex items-center justify-end space-x-4">
+                                    <Link to="/" className="block px-4 py-2 text-white font-bold">Discover What We
+                                        Offer</Link>
+                                    <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
+                                    <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
+                                </div>
 
                         {/* Avatar / User Icon */}
                         <div className="hidden md:flex items-center">
@@ -107,6 +110,8 @@ function App() {
                                     <Route path="/articles" element={<ArticleSearch />} />
                                     <Route path="/article-details" element={<ArticleDetail />} />
 
+                    <Route path="/signup" element={<AuthPage/>}/>
+                    <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
                 </Routes>
                                                             <Footer />
 
