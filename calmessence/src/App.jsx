@@ -1,4 +1,4 @@
-import  {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Link, Route, Routes,} from 'react-router-dom';
 import LandingPage from './components/LandingPage'; // Adjust path as per your project structure
 import ContactUs from './components/ContactUs';
@@ -6,6 +6,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import FAQs from "./components/FAQs.jsx";
 import "../src/index.css"
+import {LiveVideo} from "./components/VideoCall";
+import AgoraRTC, {AgoraRTCProvider} from "agora-rtc-react";
+
 function App() {
 
 
@@ -22,7 +25,6 @@ function App() {
 
     return (
         <Router>
-
             <div className="font-poppins antialiased text-gray-900 bg-gray-100">
                 <header
                     className="bg-purple-500 text-white py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 fixed w-full z-10 top-0">
@@ -54,7 +56,8 @@ function App() {
                                 <div className="md:flex items-center justify-end space-x-4">
                                     <Link to="/" className="block px-4 py-2 text-white font-bold">Discover What We
                                         Offer</Link>
-                                    <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
+                                    <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact
+                                        Us</Link>
                                     <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
                                 </div>
 
@@ -66,11 +69,16 @@ function App() {
 
                 <Routes>
                     <Route exact path="/" element={<LandingPage/>}/>
+                    <Route exact path="/videoCall" element={
+                        <AgoraRTCProvider client={AgoraRTC.createClient({mode: "rtc", codec: "vp8"})}>
+
+
+                            <LiveVideo/>
+                        </AgoraRTCProvider>}/>
                     <Route path="/contact" element={<ContactUs/>}/>
                     <Route path="/faqs" element={<FAQs/>}/>
                 </Routes>
             </div>
-
         </Router>
     );
 }
