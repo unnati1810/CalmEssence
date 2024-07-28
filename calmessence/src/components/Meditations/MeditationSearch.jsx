@@ -23,7 +23,7 @@ const initialSessions = [
 const MeditationSearch = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredSessions, setFilteredSessions] = useState(initialSessions);
-    const [category, setCategory] = useState("");
+    const [vocals, setVocals] = useState("");
     const [rating, setRating] = useState(5);
     const [sessionTime, setSessionTime] = useState("");
     const [sortBy, setSortBy] = useState("");
@@ -37,8 +37,8 @@ const MeditationSearch = () => {
         );
       }
   
-      if (category) {
-        results = results.filter((session) => session.category === category);
+      if (vocals) {
+        results = results.filter((session) => session.vocals === vocals);
       }
   
       if (rating) {
@@ -86,16 +86,15 @@ const MeditationSearch = () => {
             <h6 className="text-lg mb-2 font-bold">Filters</h6>
             <div className="lg:flex">
                 <div className="w-full mr-4">
-                    <div className="font-semibold">Category</div>
+                    <div className="font-semibold">Vocals</div>
                     <select
                     className="w-full px-3 py-2 mb-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    value={vocals}
+                    onChange={(e) => setVocals(e.target.value)}
                     >
-                        <option value="">Category</option>
-                        <option value="Morning">Morning</option>
-                        <option value="Evening">Evening</option>
-                        {/* Add more categories as needed */}
+                        <option value="">Vocals</option>
+                        <option value="female">Female only</option>
+                        <option value="male">Male only</option>
                     </select>
                 </div>
                 
@@ -123,9 +122,9 @@ const MeditationSearch = () => {
                     onChange={(e) => setSessionTime(e.target.value)}
                     >
                     <option value="">Session Time</option>
-                    <option value="10 min">10 min</option>
-                    <option value="20 min">20 min</option>
-                    {/* Add more session times as needed */}
+                    <option value="0to5">Short</option>
+                    <option value="5to30">Long</option>
+                    <option value="30to">Extended</option>
                     </select>
                 </div>
                 
@@ -137,8 +136,8 @@ const MeditationSearch = () => {
                     onChange={(e) => setSortBy(e.target.value)}
                     >
                     <option value="">Sort By</option>
-                    <option value="Rating">Rating</option>
-                    <option value="Time">Time</option>
+                    <option value="most_played">Popular</option>
+                    <option value="newest">Newest</option>
                     </select>
                 </div>
             </div>
