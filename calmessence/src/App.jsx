@@ -9,20 +9,36 @@ import "../src/index.css"
 import {LiveVideo} from "./components/VideoCall";
 import AgoraRTC, {AgoraRTCProvider} from "agora-rtc-react";
 
+// import Navbar from './components/Navbar';
+import BreathingDetails from './components/BreathingDetails';
+import Footer from "./components/Footer.jsx";
+import Search from "./components/Search.jsx";
+import CreateBreathingExercise from "./components/CreateBreathingExercise.jsx";
+import ArticleSearch from "./components/ArticleSearch.jsx";
+import ArticleDetail from "./components/ArticleDetail.jsx";
+import CreateArticle from "./components/CreateArticle.jsx";
+import contactImage from './assets/logo.png';
+
 import AuthPage from './components/Signup.jsx';
 import ForgotPasswordPage from './components/ForgotPassword.jsx';
 function App() {
 
+    const [sticky, setSticky] = useState(false);
+    const toggleMenu = () => setIsOpen(!isOpen);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         AOS.init({duration: 1000});
+         const handleScroll = () => {
+                    setSticky(window.scrollY > 0);
+                };
+
+                window.addEventListener('scroll', handleScroll);
+
+                return () => {
+                    window.removeEventListener('scroll', handleScroll);
+                };
     }, []);
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
 
 
     return (
@@ -31,7 +47,15 @@ function App() {
                 <header
                     className="bg-purple-500 text-white py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 fixed w-full z-10 top-0">
                     <nav className="mx-auto flex justify-between bg-purple-500 w-full">
-                        <div className={`text-2xl flex items-center font-bold ${isOpen ? 'hidden' : 'block'}`}>CalmEssence</div>
+                        <div className="flex items-center space-x-4">
+                            <img
+                                src={contactImage}
+                                alt="Calm Essence"
+                                className="w-10 h-10 md:w-15 md:h-15 rounded-full"
+                            />
+                            <div className="text-xl font-bold">Calm Essence</div>
+                        </div>
+
                         <div className="flex md:hidden">
                             <button
                                 className="text-white p-2 focus:outline-none"
@@ -61,12 +85,19 @@ function App() {
                                     <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
                                     <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
                                 </div>
-
                             </div>
+                        </div>
+
+                        {/* Avatar / User Icon */}
+                        <div className="hidden md:flex items-center">
+                            <img
+                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                                alt="User Avatar"
+                                className="w-10 h-10 md:w-15 md:h-15 rounded-full"
+                            />
                         </div>
                     </nav>
                 </header>
-
 
                 <Routes>
                     <Route exact path="/" element={<LandingPage/>}/>
@@ -78,9 +109,23 @@ function App() {
                         </AgoraRTCProvider>}/>
                     <Route path="/contact" element={<ContactUs/>}/>
                     <Route path="/faqs" element={<FAQs/>}/>
+
+                      <Route path="/breathing" element={
+
+                                                <Search />
+
+                                    } />
+                                    <Route path="/details" element={<BreathingDetails />} />
+                                    <Route path="/create-breathing" element={<CreateBreathingExercise />} />
+                                    <Route path="/create-article" element={<CreateArticle />} />
+                                    <Route path="/articles" element={<ArticleSearch />} />
+                                    <Route path="/article-details" element={<ArticleDetail />} />
+
                     <Route path="/signup" element={<AuthPage/>}/>
                     <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
                 </Routes>
+                                                            <Footer />
+
             </div>
         </Router>
     );
