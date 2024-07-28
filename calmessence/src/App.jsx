@@ -9,6 +9,8 @@ import "../src/index.css"
 import {LiveVideo} from "./components/VideoCall";
 import AgoraRTC, {AgoraRTCProvider} from "agora-rtc-react";
 
+import AuthPage from './components/Signup.jsx';
+import ForgotPasswordPage from './components/ForgotPassword.jsx';
 function App() {
 
 
@@ -28,8 +30,8 @@ function App() {
             <div className="font-poppins antialiased text-gray-900 bg-gray-100">
                 <header
                     className="bg-purple-500 text-white py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 fixed w-full z-10 top-0">
-                    <nav className="mx-auto flex justify-between bg-purple-500">
-                        <div className={`text-2xl font-bold ${isOpen ? 'hidden' : 'block'}`}>CalmEssence</div>
+                    <nav className="mx-auto flex justify-between bg-purple-500 w-full">
+                        <div className={`text-2xl flex items-center font-bold ${isOpen ? 'hidden' : 'block'}`}>CalmEssence</div>
                         <div className="flex md:hidden">
                             <button
                                 className="text-white p-2 focus:outline-none"
@@ -51,13 +53,12 @@ function App() {
                                 </svg>
                             </button>
                         </div>
-                        <div className={`md:flex flex-grow items-center justify-center ${isOpen ? 'block' : 'hidden'}`}>
+                        <div className={`md:flex flex-grow items-center justify-end ${isOpen ? 'block' : 'hidden'}`}>
                             <div className="text-white md:flex md:justify-end md:space-x-4">
                                 <div className="md:flex items-center justify-end space-x-4">
                                     <Link to="/" className="block px-4 py-2 text-white font-bold">Discover What We
                                         Offer</Link>
-                                    <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact
-                                        Us</Link>
+                                    <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
                                     <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
                                 </div>
 
@@ -77,6 +78,8 @@ function App() {
                         </AgoraRTCProvider>}/>
                     <Route path="/contact" element={<ContactUs/>}/>
                     <Route path="/faqs" element={<FAQs/>}/>
+                    <Route path="/signup" element={<AuthPage/>}/>
+                    <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
                 </Routes>
             </div>
         </Router>
