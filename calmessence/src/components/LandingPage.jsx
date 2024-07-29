@@ -60,9 +60,9 @@ const LandingPage = () => {
     ];
 
     return (
-            <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
 
-            <div className=" px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-12 ">
+            <div className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-12 ">
                 <div className="flex flex-wrap justify-center items-center mt-16">
                     <div className="w-full md:w-2/5 md:order-2  px-4 md:px-8 ">
                         <video autoPlay loop muted className="rounded-3xl w-full h-auto">
@@ -104,10 +104,6 @@ const LandingPage = () => {
                     </div>
                 </section>
             </div>
-
-            <footer className="bg-gray-800 text-white py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-center">
-                <p>&copy; 2024 CalmEssence. All rights reserved.</p>
-            </footer>
         </div>
     );
 }
