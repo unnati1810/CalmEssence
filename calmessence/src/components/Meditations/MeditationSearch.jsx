@@ -30,7 +30,6 @@ const MeditationSearch = () => {
         results = results.data.map((item) => {
             return item.item_summary.library_item_summary
         });
-        console.log(results);
         results = results.filter((session) => session.rating_score >= rating);
         if (searchTerm.trim()) {
             setFilteredSessions(results.filter((session) =>

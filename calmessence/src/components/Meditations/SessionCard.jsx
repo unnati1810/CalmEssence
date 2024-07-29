@@ -1,8 +1,16 @@
 import PropTypes from "prop-types";
+import { useNavigate } from 'react-router-dom';
+
 
 const SessionCard = ({ session }) => {
+  const navigate = useNavigate();
+
+  const handleSessionSelect = (sessionId) => {
+    navigate(`/meditations/${sessionId}`);
+  };
+
   return (
-    <div className="flex-shrink-0 w-60 bg-white rounded-lg shadow-lg mb-4">
+    <div className="flex-shrink-0 w-60 bg-white rounded-lg shadow-lg mb-4 cursor-pointer" onClick={() => handleSessionSelect(session.id)}>
         <img src={`https://libraryitems.insighttimer.com/${session.id}/pictures/tiny_rectangle_medium.jpeg`} alt={session.title} className="w-full h-64 object-cover rounded-lg mb-4" />
         <div className="p-4">
             <h3 className="text-lg font-bold mb-2">{session.title}</h3>

@@ -7,6 +7,7 @@ import 'aos/dist/aos.css';
 import FAQs from "./components/FAQs.jsx";
 import "../src/index.css"
 import MeditationSearch from './components/Meditations/MeditationSearch.jsx';
+import MeditationPlay from './components/Meditations/MeditationPlay.jsx';
 function App() {
 
 
@@ -68,6 +69,7 @@ function App() {
 
                 <Routes>
                     <Route path="/meditations" element={<MeditationSearch/>}/>
+                    <Route path="/meditations/:id" element={<MeditationPlay/>}/>
                     <Route exact path="/" element={<LandingPage/>}/>
                     <Route path="/contact" element={<ContactUs/>}/>
                     <Route path="/faqs" element={<FAQs/>}/>
