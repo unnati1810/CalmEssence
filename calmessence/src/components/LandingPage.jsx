@@ -104,10 +104,6 @@ const LandingPage = () => {
                     </div>
                 </section>
             </div>
-
-            <footer className="bg-gray-800 text-white py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-center">
-                <p>&copy; 2024 CalmEssence. All rights reserved.</p>
-            </footer>
         </div>
     );
 }

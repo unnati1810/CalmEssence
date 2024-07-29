@@ -2,8 +2,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f0f0f0;
     color: #333;
-    margin: 0;
-
 }
 
 /* Classes for utility or reusable styles */
@@ -15,14 +13,6 @@ body {
     border-radius: 4px;
     cursor: pointer;
 }
-
-/* Responsive styles */
-@media (max-width: 1280px) {
-    .btn {
-        font-size: 14px;
-    }
-}
-
 
 .join-room {
     max-width: 380px;
@@ -243,13 +233,6 @@ body {
     font-size: 1.2rem;
 }
 
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
 .logo {
   height: 6em;

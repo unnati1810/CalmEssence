@@ -1,21 +1,28 @@
-import { useLocation } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
+import {useState} from "react";
 
 function ArticleDetail() {
-    const { state } = useLocation();
-    const { item } = state || {};
+    const {state} = useLocation();
+    const {item} = state || {};
+    const [imgError, setImgError] = useState(false);
+
+    const handleError = () => {
+        setImgError(true);
+    };
 
     if (!item) {
         return <div className="text-center text-xl font-bold">No article data available</div>;
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <article className="prose prose-gray dark:prose-invert max-w-3xl mx-auto">
-                <header className="space-y-4 not-prose">
-                    <h1 className="text-4xl font-bold text-center">{item.title}</h1>
-                    <div className="flex items-center justify-center gap-4 text-muted-foreground">
+                <header className="space-y-4 not-prose ">
+                    <h1 className="text-4xl font-bold text-start">{item.title}</h1>
+                    <div className="flex items-start justify-start gap-4 text-muted-foreground">
                         <div>
-                            <img src="/placeholder.svg" alt="Author Avatar" className="h-10 w-10 rounded-full" />
+                            <img src={`https://eu.ui-avatars.com/api/?name=${item.user_name}&size=250`}
+                                 alt="Author Avatar" className="h-10 w-10 rounded-full"/>
                         </div>
                         <div className="text-center">
                             <div className="font-medium">{item.user_name}</div>
@@ -24,13 +31,25 @@ function ArticleDetail() {
                     </div>
                 </header>
                 <div className="mt-8">
-                    <img
-                        src={item.image || '/placeholder.svg'}
-                        alt="Article Image"
+                    {!imgError ? (<img
+                        src={item.image || 'https://eu.ui-avatars.com/api/?name=Article+Image&size=250'}
+                        alt="Article image"
+                        width={400}
+                        height={300}
                         className="aspect-video rounded-lg object-cover mx-auto"
-                    />
+                        onError={handleError}
+
+                    />) : (
+                        <img
+                            src={'https://eu.ui-avatars.com/api/?name=Article+Image&size=250'}
+                            alt="Article image"
+                            width={400}
+                            height={300}
+                            className="aspect-video rounded-lg object-cover mx-auto"
+                         />
+                    )}
                 </div>
-                <div className="mt-8 space-y-4" dangerouslySetInnerHTML={{ __html: item.content }}></div>
+                <div className="mt-8 space-y-4" dangerouslySetInnerHTML={{__html: item.content}}></div>
             </article>
         </div>
     );
