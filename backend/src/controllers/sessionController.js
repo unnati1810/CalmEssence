@@ -1,10 +1,11 @@
-const { getConnection } = require('../models/db');
+const {getConnection} = require('../models/db');
 
+// Function to create a new session
 const createSession = async (req, res) => {
-    const { title, description, session_date, session_time, expert_id, expert_email } = req.body;
+    const {title, description, session_date, session_time, expert_id, expert_email} = req.body;
 
     if (!title || !session_date || !session_time || !expert_id || !expert_email) {
-        return res.status(400).json({ error: 'Missing required fields' });
+        return res.status(400).json({error: 'Missing required fields'});
     }
 
     try {
@@ -16,7 +17,9 @@ const createSession = async (req, res) => {
         );
 
         const sessionId = insertResult.insertId;
-        await connection.execute(`UPDATE session SET agora_channel_id = ? WHERE session_id = ?`, [sessionId, sessionId]);
+        await connection.execute(`UPDATE session
+                                  SET agora_channel_id = ?
+                                  WHERE session_id = ?`, [sessionId, sessionId]);
 
         res.status(201).json({
             message: 'Session created successfully',
@@ -25,15 +28,16 @@ const createSession = async (req, res) => {
         });
     } catch (error) {
         console.error('Error creating session:', error);
-        res.status(500).json({ error: 'Error creating session' });
+        res.status(500).json({error: 'Error creating session'});
     }
 };
 
+// Function to edit an existing session
 const editSession = async (req, res) => {
-    const { session_id, title, description, session_date, session_time, actual_start_time, status } = req.body;
+    const {session_id, title, description, session_date, session_time, actual_start_time, status} = req.body;
 
     if (!session_id) {
-        return res.status(400).json({ error: 'Missing session_id' });
+        return res.status(400).json({error: 'Missing session_id'});
     }
 
     try {
@@ -47,14 +51,16 @@ const editSession = async (req, res) => {
         if (status !== undefined) fieldsToUpdate.status = status;
 
         if (Object.keys(fieldsToUpdate).length === 0) {
-            return res.status(400).json({ error: 'No fields to update' });
+            return res.status(400).json({error: 'No fields to update'});
         }
 
         const setClause = Object.keys(fieldsToUpdate).map(field => `${field} = ?`).join(', ');
         const values = Object.values(fieldsToUpdate);
         values.push(session_id);
 
-        const [updateResult] = await connection.execute(`UPDATE session SET ${setClause} WHERE session_id = ?`, values);
+        const [updateResult] = await connection.execute(`UPDATE session
+                                                         SET ${setClause}
+                                                         WHERE session_id = ?`, values);
 
         res.status(200).json({
             message: 'Session updated successfully',
@@ -62,8 +68,53 @@ const editSession = async (req, res) => {
         });
     } catch (error) {
         console.error('Error updating session:', error);
-        res.status(500).json({ error: 'Error updating session' });
+        res.status(500).json({error: 'Error updating session'});
     }
 };
 
-module.exports = { createSession, editSession };
+// Function to get a list of sessions with pagination and search
+const getSessionList = async (req, res) => {
+    const searchTerm = req.query.searchTerm || '';
+    const page = parseInt(req.query.page, 10) || 1;
+    const pageSize = parseInt(req.query.pageSize, 10) || 10;
+
+    // Calculate offset for pagination
+    const offset = (page - 1) * pageSize;
+
+    try {
+        const connection = getConnection();
+        // Fetch the sessions with pagination and search
+
+        const sqlQuery = `
+            SELECT *
+            FROM session
+            WHERE title LIKE '%${searchTerm}%'
+            ORDER BY session_date DESC
+                LIMIT ${pageSize}
+            OFFSET ${offset}
+        `;
+        console.log('SQL Query:', sqlQuery);
+        const [results] = await connection.execute(sqlQuery);
+        // Fetch total count for pagination
+        const [[{count}]] = await connection.execute(`
+            SELECT COUNT(*) AS count
+            FROM session
+            WHERE title LIKE ?
+        `, [`%${searchTerm}%`]);
+
+        res.json({
+            data: results,
+            pagination: {
+                page: page,
+                pageSize: pageSize,
+                totalItems: count,
+                totalPages: Math.ceil(count / pageSize)
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching session list:', error);
+        res.status(500).json({error: 'Error fetching session list'});
+    }
+};
+
+module.exports = {createSession, editSession, getSessionList};

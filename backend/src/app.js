@@ -11,8 +11,6 @@ app.use(express.json());
 
 app.use('/api/breathing', breathingRoutes);
 app.use('/api/articles', articleRoutes);
-
-const PORT = process.env.PORT || 8080;
 app.use('/api/sessions', sessionRoutes);
 app.use('/api/tokens', tokenRoutes);
 
