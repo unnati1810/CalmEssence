@@ -37,26 +37,13 @@ const ContactUs = () => {
     return (
         <div >
             <ToastContainer />
-            <div className="min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-purple-50 to-purple-100">
             
                 <div
                     className="w-full px-3 py-2 flex flex-col lg:flex-row items-center overflow-y-auto">
 
                     <div className="w-full lg:w-1/2 mb-4 lg:m-r4  flex justify-center items-center">
-                        {/* <div className="bg-white bg-opacity-10 m-16 p-8 rounded-xl shadow-2xl">
-                            <p className="text-gray-700 text-lg mb-4">
-                                At CalmEssence, we are committed to providing exceptional support and guidance to our
-                                clients. Here’s how we can help you:
-                            </p>
-                            <ul className="list-disc list-inside text-gray-700 text-lg">
-                                <li>Expert advice and personalized assistance.</li>
-                                <li>Timely responses and quick resolution to your queries.</li>
-                                <li>Comprehensive resources to enhance your experience.</li>
-                                <li>Continuous improvement based on your feedback.</li>
-                            </ul>
-                        </div> */}
                             <img src={contactImage} alt="Decorative" className="w-10/12 object-cover"/>
-
                     </div>
 
 

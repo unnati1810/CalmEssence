@@ -1,0 +1,178 @@
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useNavigate } from 'react-router-dom';
+
+const AuthPage = () => {
+  const [isSignup, setIsSignup] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
+  const Label = ({ htmlFor, children, className, ...props }) => (
+    <label htmlFor={htmlFor} className={`block text-sm font-medium text-gray-700 ${className}`} {...props}>
+      {children}
+    </label>
+  );
+
+  Label.propTypes = {
+    htmlFor: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+  };
+
+  const Input = ({ id, type = 'text', className, ...props }) => (
+    <input
+      id={id}
+      type={type}
+      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm ${className}`}
+      {...props}
+    />
+  );
+
+  Input.propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    className: PropTypes.string,
+  };
+
+  const Select = ({ id, className, children, ...props }) => (
+    <select
+      id={id}
+      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm ${className}`}
+      {...props}
+    >
+      {children}
+    </select>
+  );
+
+  Select.propTypes = {
+    id: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+  };
+
+  const Button = ({ type = 'button', className, children, ...props }) => (
+    <button
+      type={type}
+      className={`py-2 px-4 bg-purple-500 hover:bg-purple-700 text-white font-bold rounded ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+
+  Button.propTypes = {
+    type: PropTypes.string,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+  };
+
+  const handleForgotPassword = () => {
+    navigate('/forgot-password');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add form submission logic here
+  };
+
+  return (
+    <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md space-y-6 p-8 bg-white rounded-3xl shadow-lg" data-aos="fade-up">
+        <div className="flex flex-col items-center space-y-2">
+          <MountainIcon className="h-8 w-8" />
+          <h2 className="text-2xl font-bold">Welcome to Acme</h2>
+          <p className="text-muted-foreground">Create an account or log in to get started.</p>
+        </div>
+        <div className="flex justify-around space-x-4">
+          <Button
+            type="button"
+            className={`w-full ${isSignup ? 'bg-purple-500 text-white' : 'bg-purple-100 text-gray-700'}`}
+            onClick={() => setIsSignup(true)}
+          >
+            Sign Up
+          </Button>
+          <Button
+            type="button"
+            className={`w-full ${!isSignup ? 'bg-purple-500 text-white' : 'bg-purple-100 text-gray-700'}`}
+            onClick={() => setIsSignup(false)}
+          >
+            Login
+          </Button>
+        </div>
+        {isSignup ? (
+          <form className="grid gap-4" onSubmit={handleSubmit}>
+            <div className="grid gap-2">
+              <Label htmlFor="fullName">Full Name</Label>
+              <Input id="fullName" placeholder="Enter your full name" required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="Enter your email" required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="signupType">Signup Type</Label>
+              <Select id="signupType" required>
+                <option value="User">User</option>
+                <option value="Expert">Expert</option>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" placeholder="Enter your password" minLength="8" required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input id="confirmPassword" type="password" placeholder="Confirm your password" minLength="8" required />
+            </div>
+            <Button type="submit" className="w-full">
+              Sign Up
+            </Button>
+          </form>
+        ) : (
+          <form className="grid gap-4" onSubmit={handleSubmit}>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="Enter your email" required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" placeholder="Enter your password" required />
+            </div>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+            <p className="text-sm text-center mt-2">
+              Forgot your password? <span className="text-purple-500 cursor-pointer" onClick={handleForgotPassword}>Reset here</span>
+            </p>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
+
+function MountainIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+    </svg>
+  );
+}
+
+export default AuthPage;
