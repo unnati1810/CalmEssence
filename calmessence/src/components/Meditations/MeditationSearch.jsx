@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import SessionCard from "./SessionCard";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
+import not_found from "../../assets/not_found.png";
 
 const MeditationSearch = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -136,7 +137,7 @@ const MeditationSearch = () => {
             <div className="flex justify-center items-center h-64">
                 <ClipLoader size={50} color={"#9333ea"} loading={loading} />
             </div>
-        ) : (
+        ) : ( filteredSessions.length > 0 ? (
             <div>
                 {filteredSessions.filter((item) => {
                     return item.content_type === "GUIDED";
@@ -174,6 +175,12 @@ const MeditationSearch = () => {
                     ))}
                 </div>
             </div>
+        ) : (
+            <div className="flex flex-col justify-center items-center h-128">
+                <img src={not_found} alt={`Not Found`} className="w-64 h-64 object-cover rounded-lg mb-4" />
+                <h6  className="text-xl font-bold">Could not find what you are looking for. Kindly modify the search and filter options.</h6>
+            </div>
+        )
         )}
         </div>
       </div>

@@ -21,7 +21,6 @@ SessionCard.propTypes = {
     content_type: PropTypes.string.isRequired,
     rating_score: PropTypes.number.isRequired,
     media_length: PropTypes.number.isRequired,
-    thumbnail: PropTypes.string.isRequired, // New prop for the thumbnail image URL
   }).isRequired,
 };
 
