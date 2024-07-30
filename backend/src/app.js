@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes');
 const breathingRoutes = require('./routes/breathingRoutes');
 const articleRoutes = require('./routes/articleRoutes');
 app.use(cors());
