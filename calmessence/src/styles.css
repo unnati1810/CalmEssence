@@ -93,8 +93,6 @@ body {
     border-color: rgba(75, 85, 99, var(--un-border-opacity));
     border-width: 1px;
     box-sizing: border-box;
-    width: 288px;
-    height: 216px;
 }
 .user-name {
     --un-text-opacity: 1;
