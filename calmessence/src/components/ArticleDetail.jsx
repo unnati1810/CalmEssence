@@ -34,18 +34,14 @@ function ArticleDetail() {
                     {!imgError ? (<img
                         src={item.image || 'https://eu.ui-avatars.com/api/?name=Article+Image&size=250'}
                         alt="Article image"
-                        width={400}
-                        height={300}
-                        className="aspect-video rounded-lg object-cover mx-auto"
+                        className="aspect-video rounded-lg object-cover mx-auto w-96 h-80"
                         onError={handleError}
 
                     />) : (
                         <img
                             src={'https://eu.ui-avatars.com/api/?name=Article+Image&size=250'}
                             alt="Article image"
-                            width={400}
-                            height={300}
-                            className="aspect-video rounded-lg object-cover mx-auto"
+                            className="aspect-video rounded-lg object-cover mx-auto w-96 h-80"
                          />
                     )}
                 </div>

@@ -95,7 +95,7 @@ const AuthPage = () => {
       signupType: e.target.signupType?.value,
     };
 
-    const url = isSignup ? 'http://localhost:8080/api/auth/register' : 'http://localhost:8080/api/auth/login';
+    const url = isSignup ? 'https://csci-5709-group8.onrender.com/api/auth/register' : 'https://csci-5709-group8.onrender.com/api/auth/login';
 
     try {
       setLoading(true);
