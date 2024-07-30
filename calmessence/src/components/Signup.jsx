@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../AuthContext';
+import axios from "axios";
+import { useAuth } from '../AuthContext';
 
 const AuthPage = () => {
   const [isSignup, setIsSignup] = useState(true);
   const navigate = useNavigate();
-  // const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  console.log(loading);
+  console.log(error);
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -77,11 +82,51 @@ const AuthPage = () => {
     navigate('/forgot-password');
   };
 
-  const handleSubmit = (e) => {
+  const { login } = useAuth(); // Use the login function from AuthContext
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // await login({ email, password });
-    // Add form submission logic here
+
+    const data = {
+      fullName: e.target.fullName?.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      confirmPassword: e.target.confirmPassword?.value,
+      signupType: e.target.signupType?.value,
+    };
+
+    const url = isSignup ? 'http://localhost:8080/api/auth/register' : 'http://localhost:8080/api/auth/login';
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        if(isSignup){
+          setIsSignup(false);
+        }else{
+          const { token, user } = response.data;
+          login(user, token);
+          navigate('/');
+        }
+      } else {
+        console.error('Unexpected response:', response);
+        setError('An error occurred');
+      }
+    } catch (error) {
+      console.error('Error:', error.response ? error.response.data : error.message);
+      setError(error.response ? error.response.data : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 min-h-screen flex items-center justify-center">
@@ -120,8 +165,8 @@ const AuthPage = () => {
             <div className="grid gap-2">
               <Label htmlFor="signupType">Signup Type</Label>
               <Select id="signupType" required>
-                <option value="User">User</option>
-                <option value="Expert">Expert</option>
+                <option value="user">User</option>
+                <option value="expert">Expert</option>
               </Select>
             </div>
             <div className="grid gap-2">

@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import contactImage from '../assets/contact-us.png';
 
@@ -36,7 +36,6 @@ const ContactUs = () => {
 
     return (
         <div >
-            <ToastContainer />
             <div className="w-full min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-base-200 to-base-200">
             
                 <div
