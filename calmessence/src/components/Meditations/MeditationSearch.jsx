@@ -64,9 +64,10 @@ const MeditationSearch = () => {
           </div>
   
           <div className="mb-8">
-            <h6 className="text-lg mb-2 font-bold">Filters</h6>
+            <div className="text-lg mb-2 font-bold">Filters</div>
+            <div className=" p-8 bg-purple-100 rounded-3xl shadow-2xl">
             <div className="lg:flex">
-                <div className="w-full mr-4">
+                <div className="w-full mr-8">
                     <div className="font-semibold">Vocals</div>
                     <select
                     className="w-full px-3 py-2 mb-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
@@ -123,12 +124,13 @@ const MeditationSearch = () => {
                 </div>
             </div>
             <div className="w-full flex justify-end">
-            <button
-                className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
-                onClick={handleFilters}
-                >
-                Apply Filters
+                <button
+                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                    onClick={handleFilters}
+                    >
+                    Apply Filters
                 </button>
+            </div>
             </div>
           </div>
   
