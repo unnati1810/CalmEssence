@@ -17,23 +17,23 @@ const ChatModule = () => {
     }, [userId]);
 
     const fetchExperts = async () => {
-        const response = await axios.get('http://localhost:8080/api/chats/experts');
+        const response = await axios.get('https://csci-5709-group8.onrender.com/api/chats/experts');
         setExperts(response.data);
     };
 
     const fetchChats = async (userId) => {
-        const response = await axios.get(`http://localhost:8080/api/chats/chats/${userId}`);
+        const response = await axios.get(`https://csci-5709-group8.onrender.com/api/chats/chats/${userId}`);
         setChats(response.data);
     };
 
     const fetchMessages = async (chatId) => {
-        const response = await axios.get(`http://localhost:8080/api/chats/messages/${chatId}`);
+        const response = await axios.get(`https://csci-5709-group8.onrender.com/api/chats/messages/${chatId}`);
         setMessages(response.data);
     };
 
     const handleSendMessage = async () => {
         if (newMessage.trim() === '') return;
-        await axios.post('http://localhost:8080/api/chats/messages', {
+        await axios.post('https://csci-5709-group8.onrender.com/api/chats/messages', {
             chat_id: selectedChat.chat_id,
             sender_id: userId,
             message_text: newMessage
