@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
+// import { useAuth } from '../AuthContext';
 
 const AuthPage = () => {
   const [isSignup, setIsSignup] = useState(true);
   const navigate = useNavigate();
+  // const { login } = useAuth();
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -77,6 +79,7 @@ const AuthPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // await login({ email, password });
     // Add form submission logic here
   };
 
