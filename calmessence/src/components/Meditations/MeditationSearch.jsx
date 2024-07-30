@@ -17,6 +17,7 @@ const MeditationSearch = () => {
 
     useEffect(() => {
         handleFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleFilters = async () => {
@@ -42,20 +43,20 @@ const MeditationSearch = () => {
     };
   
     return (
-      <div className="min-h-screen flex flex-col items-center p-4 pt-20 bg-gradient-to-b from-purple-50 to-purple-100">
-        <div className="w-full p-8">
+      <div className="min-h-screen flex flex-col items-center p-4 md:p-8 bg-gradient-to-b from-base-200 to-base-200">
+        <div className="w-full">
           <div className="lg:flex justify-between items-center lg:space-x-4 mb-8">
             <h1 className="text-4xl mb-4 font-bold">Meditations</h1>
             <div className="flex">
                 <input
                 type="text"
                 placeholder="Search..."
-                className="w-96 px-4 py-2 mr-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                className="w-96 px-4 py-2 mr-2 text-gray-900 border rounded-lg focus:outline-none focus:border-purple-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
-                className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+                className="bg-zinc-950 hover:bg-base-300 hover:text-black text-white font-bold py-2 px-4 rounded"
                 onClick={handleFilters}
                 >
                 Search
@@ -64,13 +65,13 @@ const MeditationSearch = () => {
           </div>
   
           <div className="mb-8">
-            <div className="text-lg mb-2 font-bold">Filters</div>
-            <div className=" p-8 bg-purple-100 rounded-3xl shadow-2xl">
+            <div className=" p-8 bg-base-400 rounded-3xl shadow-2xl">
+            <div className="text-xl mb-4 font-bold">FILTERS</div>
             <div className="lg:flex">
                 <div className="w-full mr-8">
                     <div className="font-semibold">Vocals</div>
                     <select
-                    className="w-full px-3 py-2 mb-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2 mb-2 text-gray-900 border rounded-lg focus:outline-none focus:border-purple-500"
                     value={vocals}
                     onChange={(e) => setVocals(e.target.value)}
                     >
@@ -99,7 +100,7 @@ const MeditationSearch = () => {
                 <div className="w-full mr-4">
                     <div className="font-semibold">Session Time</div>
                     <select
-                    className="w-full px-3 py-2 mb-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2 mb-2 text-gray-900 border rounded-lg focus:outline-none focus:border-purple-500"
                     value={sessionTime}
                     onChange={(e) => setSessionTime(e.target.value)}
                     >
@@ -113,7 +114,7 @@ const MeditationSearch = () => {
                 <div className="w-full mr-4">
                     <div className="font-semibold">Sort By</div>
                     <select
-                    className="w-full px-3 py-2 mb-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2 mb-2 text-gray-900 border rounded-lg focus:outline-none focus:border-purple-500"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                     >
@@ -125,7 +126,7 @@ const MeditationSearch = () => {
             </div>
             <div className="w-full flex justify-end">
                 <button
-                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                    className="bg-zinc-950 hover:bg-base-300 hover:text-black text-white font-bold py-2 px-4 rounded"
                     onClick={handleFilters}
                     >
                     Apply Filters
@@ -142,7 +143,7 @@ const MeditationSearch = () => {
             <div>
                 {filteredSessions.filter((item) => {
                     return item.content_type === "GUIDED";
-                }).length > 0 ? <h6 className="text-lg font-bold">GUIDED</h6> :
+                }).length > 0 ? <h6 className="text-xl mb-4 font-bold">GUIDED</h6> :
                 <div></div>}
                 <div className="flex overflow-x-auto space-x-4 mb-4">
                     {filteredSessions.filter((item) => {
@@ -154,7 +155,7 @@ const MeditationSearch = () => {
 
                 {filteredSessions.filter((item) => {
                     return item.content_type === "MUSIC";
-                }).length > 0 ? <h6 className="text-lg font-bold">MUSIC</h6> :
+                }).length > 0 ? <h6 className="text-xl mb-4 font-bold">MUSIC</h6> :
                 <div></div>}
                 <div className="flex overflow-x-auto space-x-4 mb-4">
                     {filteredSessions.filter((item) => {
@@ -166,7 +167,7 @@ const MeditationSearch = () => {
 
                 {filteredSessions.filter((item) => {
                     return item.content_type === "TALKS";
-                }).length > 0 ? <h6 className="text-lg font-bold">TALKS</h6> :
+                }).length > 0 ? <h6 className="text-xl mb-4 font-bold">TALKS</h6> :
                 <div></div>}
                 <div className="flex overflow-x-auto space-x-4 mb-4">
                     {filteredSessions.filter((item) => {
