@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
 import ChatWindow from './ChatWindow';
+import { useAuth } from '../AuthContext'; // Adjust import path as necessary
 
 const ChatModule = () => {
     const [experts, setExperts] = useState([]);
@@ -9,12 +10,13 @@ const ChatModule = () => {
     const [selectedChat, setSelectedChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    // const [userId, setUserId] = useState('vishesh@example.com'); // replace with logged-in user ID
-    const userId = 'vishesh@example.com';
+    const { user } = useAuth();
+    const userId = user.email;
+
     useEffect(() => {
         fetchExperts();
-        fetchChats(userId);
-    }, [userId]);
+        fetchChats(user.email);
+    }, [user.email]);
 
     const fetchExperts = async () => {
         const response = await axios.get('https://csci-5709-group8.onrender.com/api/chats/experts');
@@ -42,6 +44,32 @@ const ChatModule = () => {
         fetchMessages(selectedChat.chat_id);
     };
 
+    const createChatRequest = async (userId1, userId2, user1Name, user2Name, lastMessageText) => {
+        try {
+
+          console.log( {
+              user_id1: userId1,
+              user_id2: userId2,
+              user1_name: user1Name,
+              user2_name: user2Name,
+              last_message_text: lastMessageText
+          });
+            const response = await axios.post('https://csci-5709-group8.onrender.com/api/chats/chats/request', {
+                user_id1: userId1,
+                user_id2: userId2,
+                user1_name: user1Name,
+                user2_name: user2Name,
+                last_message_text: lastMessageText
+            });
+            const chatId = response.data.chatId;
+            console.log('Chat created with ID:', chatId);
+            // You can fetch chats again or update the state accordingly
+            fetchChats(userId1);
+        } catch (error) {
+            console.error('Error creating chat request:', error);
+        }
+    };
+
     return (
         <div className="h-screen flex flex-col md:flex-row">
             <Sidebar
@@ -50,6 +78,8 @@ const ChatModule = () => {
                 setSelectedChat={setSelectedChat}
                 fetchMessages={fetchMessages}
                 userId={userId}
+                user_name={userId}
+                createChatRequest={createChatRequest} // Pass the function to Sidebar if needed
             />
             <ChatWindow
                 selectedChat={selectedChat}

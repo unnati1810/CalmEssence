@@ -141,7 +141,7 @@ function LiveSession() {
                 <div className="font-bold text-black text-xl truncate">Scheduled Session</div>
                 <div className="flex items-center">
                     <button
-                        className="btn btn-primary mr-2"
+                        className="rounded-box p-4 shadow-lg hover:bg-base-300 hover:text-black transition duration-300"
                         disabled={pagination.page === 1 || fetching}
                         onClick={() => handlePageChange('prev')}
                     >
@@ -149,7 +149,7 @@ function LiveSession() {
                     </button>
                     <span>Page {pagination.page} of {pagination.totalPages}</span>
                     <button
-                        className="btn btn-primary ml-2"
+                        className="rounded-box p-4 shadow-lg hover:bg-base-300 hover:text-black transition duration-300"
                         disabled={pagination.page === pagination.totalPages || fetching}
                         onClick={() => handlePageChange('next')}
                     >
