@@ -8,10 +8,7 @@ const chatRoutes = require('./routes/chatRoutes');
 const breathingRoutes = require('./routes/breathingRoutes');
 const articleRoutes = require('./routes/articleRoutes');
 
-app.use(cors({
-    origin: 'http://localhost:3000', // Adjust according to your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-}));
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/breathing', breathingRoutes);
