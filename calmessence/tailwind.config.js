@@ -4,9 +4,7 @@ module.exports = {
     extend: {
       fontFamily: {
         customFont: ['"Poppins"', "sans-serif"],
-        // Add more custom font families as needed
       }
-
     },
   },
   variants: {
