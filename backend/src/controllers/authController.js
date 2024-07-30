@@ -1,53 +1,86 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config/emailConfig');
-const User = require('../models/user');
-const sendEmail = require('../utils/sendEmail');
+const { getConnection } = require('../models/db');
 
 const register = async (req, res) => {
-  const { email, password, full_name, phone_number, user_type } = req.body;
+  const { fullName, email, password, confirmPassword, signupType } = req.body;
+
+  if (!fullName || !email || !password || !confirmPassword || !signupType) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ error: 'Passwords do not match' });
+  }
 
   try {
+    const connection = getConnection();
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ 
-      email, 
-      password: hashedPassword,
-      full_name,
-      phone_number,
-      user_type,
-      is_active: false  
-    });
+    const query = `INSERT INTO users (full_Name, email, password, user_type) VALUES (?, ?, ?, ?)`;
 
-    const token = jwt.sign({ userId: user.id }, config.secret, { expiresIn: '1h' });
+    // Using connection.execute for the query with await
+    await connection.execute(query, [fullName, email, hashedPassword, signupType]);
 
-    const confirmationLink = `http://localhost:8080/api/auth/confirm/${token}`;
-
-    await sendEmail(email, 'Email Confirmation', `Click this link to confirm your email: ${confirmationLink}`);
-
-    res.status(201).send({ message: 'Registration successful. Please check your email to confirm your account.' });
+    res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    console.error('Error registering user:', error);
+
+    if (error.code === 'ER_DUP_ENTRY') {
+      res.status(409).json({ error: 'Email already in use' });
+    } else {
+      res.status(500).json({ error: 'Error registering user' });
+    }
   }
 };
 
-const confirmEmail = async (req, res) => {
-  const { token } = req.params;
+
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
   try {
-    const decoded = jwt.verify(token, config.secret);
-    const user = await User.findByPk(decoded.userId);
+    const connection = getConnection();
+    const sqlQuery = `SELECT * FROM users WHERE email = ${connection.escape(email)}`;
 
-    if (!user) {
-      return res.status(404).send({ message: 'User not found' });
+    console.log('SQL Query:', sqlQuery);
+    const [results] = await connection.execute(sqlQuery);
+
+
+    if (results.length === 0) {
+      return res.status(400).json({ error: 'Invalid email or password' });
     }
 
-    user.is_active = true;
-    await user.save();
+    const user = results[0];
 
-    res.status(200).send({ message: 'Email confirmed successfully. You can now log in.' });
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid email or password' });
+    }
+
+    // Generate token
+    const token = jwt.sign({ userId: user.id, email: user.email }, 'your_jwt_secret', { expiresIn: '1h' });
+
+    res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user.user_id,
+        fullName: user.full_Name,
+        email: user.email,
+        userType: user.user_type,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at
+      }
+    });
   } catch (error) {
-    res.status(500).send({ message: 'Invalid or expired token' });
+    console.error('Error logging in user:', error);
+    res.status(500).json({ error: 'Error logging in user' });
   }
 };
 
-module.exports = { register, confirmEmail };
+module.exports = { register, login };
