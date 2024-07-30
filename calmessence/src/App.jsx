@@ -17,6 +17,7 @@ import CreateBreathingExercise from './components/CreateBreathingExercise.jsx';
 import ArticleSearch from './components/ArticleSearch.jsx';
 import ArticleDetail from './components/ArticleDetail.jsx';
 import CreateArticle from './components/CreateArticle.jsx';
+import ChatModule from './components/ChatModule.js';
 import contactImage from './assets/logo.png';
 
 import AuthPage from './components/Signup.jsx';
@@ -133,6 +134,7 @@ function App() {
             <Route path="/articles" element={<ArticleSearch />} />
             <Route path="/article-details" element={<ArticleDetail />} />
             <Route path="/signup" element={<AuthPage />} />
+            <Route path="/chats" element={<ChatModule />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Routes>
         </main>
