@@ -5,10 +5,11 @@ import ContactUs from './components/ContactUs';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import FAQs from "./components/FAQs.jsx";
-import "../src/index.css";
-
-import {LiveVideo} from "./components/VideoCall";
-import AgoraRTC, {AgoraRTCProvider} from "agora-rtc-react";
+import "../src/index.css"
+import MeditationSearch from './components/Meditations/MeditationSearch.jsx';
+import MeditationPlay from './components/Meditations/MeditationPlay.jsx';
+import { LiveVideo } from "./components/VideoCall";
+import AgoraRTC, { AgoraRTCProvider } from "agora-rtc-react";
 
 import BreathingDetails from './components/BreathingDetails.jsx';
 import Footer from "./components/Footer.jsx";
@@ -107,7 +108,7 @@ function App() {
                                             {/*<NavLink to="/"*/}
                                             {/*         className={({isActive}) => isActive ? 'bg-black rounded-box block px-4 py-2 text-white font-bold hover:bg-base-200' : 'block px-4 rounded-box py-2 text-black font-bold hover:bg-base-200'}>Breathing</NavLink>*/}
                                             <NavLink to="/" className={getNavLinkClass}>Home</NavLink>
-                                            <NavLink to="/meditate" className={getNavLinkClass}>Meditate</NavLink>
+                                            <NavLink to="/meditations" className={getNavLinkClass}>Meditate</NavLink>
                                             <NavLink to="/breathing" className={getNavLinkClass}>Breathing</NavLink>
                                             <NavLink to="/articles" className={getNavLinkClass}>Article</NavLink>
                                             <NavLink to="/chats" className={getNavLinkClass}>Chat</NavLink>
@@ -147,7 +148,10 @@ function App() {
                             <Route exact path="/videoCall" element={
                                 <AgoraRTCProvider client={AgoraRTC.createClient({mode: "rtc", codec: "vp8"})}>
                                     <LiveVideo/>
-                                </AgoraRTCProvider>}/> </Routes>
+                                </AgoraRTCProvider>}/>
+                            <Route path="/meditations" element={<MeditationSearch/>}/>
+                            <Route path="/meditations/:id" element={<MeditationPlay/>}/>
+                        </Routes>
                     </main>
 
                     {shouldDisplayHeaderFooter && <Footer/>}

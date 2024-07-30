@@ -88,7 +88,7 @@ const AuthPage = () => {
       <div className="w-full max-w-md mt-3 space-y-6 p-8 bg-white rounded-2xl shadow-lg" data-aos="fade-up">
         <div className="flex flex-col items-center space-y-2">
           <MountainIcon className="h-8 w-8" />
-          <h2 className="text-2xl font-bold">Welcome to Acme</h2>
+          <h2 className="text-2xl font-bold">Welcome to CalmEssence</h2>
           <p className="text-muted-foreground">Create an account or log in to get started.</p>
         </div>
         <div className="flex justify-around space-x-4">
