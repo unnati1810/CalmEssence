@@ -22,6 +22,8 @@ import contactImage from './assets/logo.png';
 import AuthPage from './components/Signup.jsx';
 import ForgotPasswordPage from './components/ForgotPassword.jsx';
 import LiveSession from "./components/LiveSession";
+import { AuthProvider } from './AuthContext'; // Import AuthProvider
+// import { useAuth } from '../AuthContext';
 
 // Utility function to determine if the current path should display header and footer
 const useShouldDisplayHeaderFooter = () => {
@@ -35,6 +37,9 @@ function App() {
   const [sticky, setSticky] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
   const [isOpen, setIsOpen] = useState(false);
+  // const { logout } = useAuth();
+  // logout();
+
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -52,7 +57,8 @@ function App() {
   const shouldDisplayHeaderFooter = useShouldDisplayHeaderFooter();
 
   return (
-    <Router>
+      <AuthProvider>
+      <Router>
       <div className="font-poppins antialiased text-gray-900 bg-gray-100">
         {shouldDisplayHeaderFooter && (
           <header
@@ -134,6 +140,7 @@ function App() {
         {shouldDisplayHeaderFooter && <Footer />}
       </div>
     </Router>
+      </AuthProvider>
   );
 }
 
