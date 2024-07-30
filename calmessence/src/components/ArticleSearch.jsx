@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ArticleCard from './ArticleCard'; // Assume you have a separate component for displaying articles
 import debounce from 'lodash/debounce';
-
+/* eslint-disable react-hooks/exhaustive-deps */
 function ArticleSearch() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
@@ -22,7 +22,7 @@ function ArticleSearch() {
         debounce(async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('http://localhost:8080/api/articles/list', {
+                const { data } = await axios.get('https://csci-5709-group8.onrender.com/api/articles/list', {
                     params: {
                         page: pagination.page,
                         pageSize: pagination.pageSize,

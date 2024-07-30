@@ -4,6 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import Cards from './Cards';
 import debounce from 'lodash/debounce'; // Import debounce from lodash
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 function Search() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
@@ -23,7 +25,7 @@ function Search() {
         debounce(async () => {
             try {
                 setLoading(true); // Set loading to true before fetching
-                const {data} = await axios.get('http://localhost:8080/api/breathing/list', {
+                const {data} = await axios.get('https://csci-5709-group8.onrender.com/api/breathing/list', {
                     params: {
                         page: pagination.page,
                         pageSize: pagination.pageSize,

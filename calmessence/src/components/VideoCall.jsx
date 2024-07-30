@@ -31,7 +31,7 @@ export const LiveVideo = () => {
     useEffect(() => {
         const fetchToken = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/tokens/generate', {
+                const response = await fetch('https://csci-5709-group8.onrender.com/api/tokens/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

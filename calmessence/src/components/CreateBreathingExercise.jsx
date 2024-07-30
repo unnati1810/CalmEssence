@@ -30,7 +30,7 @@ const CreateBreathingExercise = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/breathing/create', breathingExercise);
+            const response = await axios.post('https://csci-5709-group8.onrender.com/api/breathing/create', breathingExercise);
             console.log('Breathing exercise created successfully:', response.data);
             // Clear the form after successful submission
             setTitle('');
