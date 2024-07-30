@@ -31,7 +31,7 @@ export const LiveVideo = () => {
     useEffect(() => {
         const fetchToken = async () => {
             try {
-                const response = await fetch('http://localhost:8080/api/tokens/generate', {
+                const response = await fetch('https://csci-5709-group8.onrender.com/api/tokens/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export const LiveVideo = () => {
     console.log("Remote Users"+remoteUsers.toString());
 
     return (
-        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="flex flex-col lg:flex-row h-full">
                 <div className="session-details bg-white shadow-md rounded-lg p-6 lg:w-1/3 mb-6 lg:mb-0">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Session Details</h2>
@@ -136,10 +136,10 @@ export const LiveVideo = () => {
                                     <div className="flex space-x-4">
                                         {isPublisher && (
                                             <>
-                                                <button id="mic-control" className="btn bg-purple-600 text-white p-2 rounded-lg" onClick={() => setMic(a => !a)}>
+                                                <button id="mic-control" className="btn bg-base-200 text-black p-2 rounded-lg" onClick={() => setMic(a => !a)}>
                                                     <i className={`i-microphone ${!micOn ? "off" : ""}`}></i>
                                                 </button>
-                                                <button id="camera-control" className="btn bg-purple-600 text-white p-2 rounded-lg" onClick={() => setCamera(a => !a)}>
+                                                <button id="camera-control" className="btn bg-base-200 text-black p-2 rounded-lg" onClick={() => setCamera(a => !a)}>
                                                     <i className={`i-camera ${!cameraOn ? "off" : ""}`}></i>
                                                 </button>
                                             </>

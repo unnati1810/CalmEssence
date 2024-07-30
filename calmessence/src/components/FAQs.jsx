@@ -45,7 +45,7 @@ const FAQItem = ({ faq, index, toggleFAQ }) => {
                 className="cursor-pointer pt-4 pb-2 flex justify-between items-center"
                 onClick={() => toggleFAQ(index)}
             >
-                <h4 className={`text-lg font-semibold ${faq.open ? 'text-purple-500' : 'text-gray-800'}`}>
+                <h4 className={`text-lg font-semibold ${faq.open ? 'text-amber-800' : 'text-black'}`}>
                     {faq.question}
                 </h4>
                 <span className={`transform transition-transform duration-300 ${faq.open ? 'rotate-180' : ''}`}>
@@ -84,7 +84,7 @@ const FAQs = () => {
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-start p-4 pt-24 bg-gradient-to-b from-purple-50 to-purple-100">
+        <div className="min-h-screen flex justify-center items-start p-4 pt-24 bg-gradient-to-b from-base-200 to-base-200">
             <div className="bg-white rounded-2xl items-center shadow-lg p-8 w-full sm:mx-8 md:mx-40 lg:60 xl:60 h-full">
                 <div className="py-4 w-full sm:w-1/2 items-center sm:mx-8 md:mx-40 lg:mx-60 xl:mx-60 text-center">
                     <h2 className="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>

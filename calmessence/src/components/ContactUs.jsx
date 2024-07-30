@@ -37,7 +37,7 @@ const ContactUs = () => {
     return (
         <div >
             <ToastContainer />
-            <div className="w-full min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-base-200 to-base-200">
             
                 <div
                     className="w-full px-3 py-2 flex flex-col lg:flex-row items-center overflow-y-auto">
@@ -60,7 +60,7 @@ const ContactUs = () => {
                                         name="name"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                                        className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-base-100"
                                         required
                                     />
                                 </div>
@@ -72,7 +72,7 @@ const ContactUs = () => {
                                         name="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                                        className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-base-100"
                                         placeholder="testemail@dal.ca"
                                         required
                                     />
@@ -91,7 +91,7 @@ const ContactUs = () => {
                                 <div className="flex items-center justify-center mt-4 mb-2">
                                     <button
                                         type="submit"
-                                        className="w-full px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+                                        className="w-full px-3 py-2 text-white bg-zinc-950 hover:bg-base-200 hover:text-black font-semibold rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-base-200 focus:ring-opacity-50"
                                     >
                                         Send Message
                                     </button>

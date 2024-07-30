@@ -25,7 +25,7 @@ const ForgotPasswordPage = () => {
     <input
       id={id}
       type={type}
-      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm ${className}`}
+      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-base-100 focus:border-base-200 sm:text-sm ${className}`}
       {...props}
     />
   );
@@ -39,7 +39,7 @@ const ForgotPasswordPage = () => {
   const Button = ({ type = 'button', className, children, ...props }) => (
     <button
       type={type}
-      className={`py-2 px-4 bg-purple-500 hover:bg-purple-700 text-white font-bold rounded ${className}`}
+      className={`py-2 px-4 bg-base-200 hover:bg-base-200 text-black font-bold rounded ${className}`}
       {...props}
     >
       {children}
@@ -55,7 +55,7 @@ const ForgotPasswordPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen flex items-center justify-center">
+    <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md space-y-6 p-8 bg-white rounded-3xl shadow-lg" data-aos="fade-up">
         <div className="flex flex-col items-center space-y-2">
           <MountainIcon className="h-8 w-8" />
@@ -72,7 +72,7 @@ const ForgotPasswordPage = () => {
           </Button>
         </form>
         <p className="text-sm text-center mt-2">
-          Back to <span className="text-purple-500 cursor-pointer" onClick={() => navigate('/signup')}>Login</span>
+          Back to <span className="text-base-200 cursor-pointer" onClick={() => navigate('/signup')}>Login</span>
         </p>
       </div>
     </div>

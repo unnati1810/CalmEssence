@@ -10,7 +10,7 @@ function BreathingDetails() {
 
     return (
         <div
-            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="w-full h-full mx-auto px-4 md:px-6 py-2 md:py-4">
                 <div className="space-y-6">
                     <div className="space-y-4">

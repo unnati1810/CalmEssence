@@ -21,7 +21,7 @@ function LiveSession() {
 
     const fetchSessions = async (page) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/sessions/list?page=${page}&pageSize=${pageSize}`);
+            const response = await fetch(`https://csci-5709-group8.onrender.com/api/sessions/list?page=${page}&pageSize=${pageSize}`);
             const result = await response.json();
             setSessionsList(result.data);
             setPagination(result.pagination);
@@ -66,7 +66,7 @@ function LiveSession() {
                 status: "started"
             };
             try {
-                await fetch('http://localhost:8080/api/sessions/edit', {
+                await fetch('https://csci-5709-group8.onrender.com/api/sessions/edit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ function LiveSession() {
         } else {
             // Create new session
             try {
-                await fetch('http://localhost:8080/api/sessions/create', {
+                await fetch('https://csci-5709-group8.onrender.com/api/sessions/create', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -132,7 +132,7 @@ function LiveSession() {
 
     return (
         <div
-            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="flex justify-between items-center mb-6">
                 <div className="font-bold text-black text-xl truncate">Scheduled Session</div>
                 <div className="flex items-center">
@@ -239,7 +239,7 @@ function LiveSession() {
                             </select>
                         </div>
                         <button type="submit"
-                                className="bg-purple-500 hover:bg-purple-700 text-white w-full font-bold py-2 px-4 rounded">
+                                className="bg-base-100 hover:bg-base-200 text-black w-full font-bold py-2 px-4 rounded">
                             Submit
                         </button>
                     </form>

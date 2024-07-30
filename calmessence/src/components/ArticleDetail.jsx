@@ -15,7 +15,7 @@ function ArticleDetail() {
     }
 
     return (
-        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <article className="prose prose-gray dark:prose-invert max-w-3xl mx-auto">
                 <header className="space-y-4 not-prose ">
                     <h1 className="text-4xl font-bold text-start">{item.title}</h1>

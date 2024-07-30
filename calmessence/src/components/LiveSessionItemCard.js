@@ -18,7 +18,7 @@ const LiveSessionItemCard = ({ session, onEdit, onStart }) => {
                 </div>
                 <div className="mt-4 flex justify-between">
                     <button
-                        className="bg-purple-500 hover:bg-purple-700 text-white  text-sm flex-1 me-1 py-2 px-4 rounded"
+                        className="bg-base-100 hover:bg-base-200 text-black text-sm flex-1 me-1 py-2 px-4 rounded"
                         onClick={() => onStart(session)}
                     >
                         Start
