@@ -1,16 +1,22 @@
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../config');
+const config = require('../config/emailConfig');
 const User = require('../models/user');
 const sendEmail = require('../utils/sendEmail');
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, full_name, phone_number, user_type } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, password: hashedPassword });
+    const user = await User.create({ 
+      email, 
+      password: hashedPassword,
+      full_name,
+      phone_number,
+      user_type,
+      is_active: false  
+    });
 
     const token = jwt.sign({ userId: user.id }, config.secret, { expiresIn: '1h' });
 
