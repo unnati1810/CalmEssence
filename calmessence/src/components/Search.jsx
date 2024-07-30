@@ -17,7 +17,6 @@ function Search() {
         totalPages: 0
     });
     const [loading, setLoading] = useState(false); // Add loading state
-
     const navigate = useNavigate(); // Use navigate from react-router-dom
 
     // Debounce function to limit the number of API calls
@@ -34,7 +33,7 @@ function Search() {
                 });
                 setFilteredData(data.data);
                 setPagination(data.pagination);
-
+              
                 // Check if no matches found
                 setNoMatchFound(data.data.length === 0);
             } catch (error) {
