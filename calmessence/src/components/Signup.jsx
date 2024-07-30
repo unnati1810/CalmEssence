@@ -28,7 +28,7 @@ const AuthPage = () => {
     <input
       id={id}
       type={type}
-      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm ${className}`}
+      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-base-100 focus:border-base-200 sm:text-sm ${className}`}
       {...props}
     />
   );
@@ -42,7 +42,7 @@ const AuthPage = () => {
   const Select = ({ id, className, children, ...props }) => (
     <select
       id={id}
-      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm ${className}`}
+      className={`mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-base-100 focus:border-base-200 sm:text-sm ${className}`}
       {...props}
     >
       {children}
@@ -58,7 +58,7 @@ const AuthPage = () => {
   const Button = ({ type = 'button', className, children, ...props }) => (
     <button
       type={type}
-      className={`py-2 px-4 bg-purple-500 hover:bg-purple-700 text-white font-bold rounded ${className}`}
+      className={`py-2 px-4 bg-base-100 hover:bg-base-200 text-black font-bold rounded ${className}`}
       {...props}
     >
       {children}
@@ -81,8 +81,8 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md space-y-6 p-8 bg-white rounded-3xl shadow-lg" data-aos="fade-up">
+    <div className="font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md mt-3 space-y-6 p-8 bg-white rounded-2xl shadow-lg" data-aos="fade-up">
         <div className="flex flex-col items-center space-y-2">
           <MountainIcon className="h-8 w-8" />
           <h2 className="text-2xl font-bold">Welcome to Acme</h2>
@@ -91,14 +91,14 @@ const AuthPage = () => {
         <div className="flex justify-around space-x-4">
           <Button
             type="button"
-            className={`w-full ${isSignup ? 'bg-purple-500 text-white' : 'bg-purple-100 text-gray-700'}`}
+            className={`w-full ${isSignup ? 'bg-base-100 text-black' : 'bg-base-200 text-gray-700'}`}
             onClick={() => setIsSignup(true)}
           >
             Sign Up
           </Button>
           <Button
             type="button"
-            className={`w-full ${!isSignup ? 'bg-purple-500 text-white' : 'bg-purple-100 text-gray-700'}`}
+            className={`w-full ${!isSignup ? 'bg-base-100 text-black' : 'bg-base-200 text-gray-700'}`}
             onClick={() => setIsSignup(false)}
           >
             Login
@@ -147,7 +147,7 @@ const AuthPage = () => {
               Login
             </Button>
             <p className="text-sm text-center mt-2">
-              Forgot your password? <span className="text-purple-500 cursor-pointer" onClick={handleForgotPassword}>Reset here</span>
+              Forgot your password? <span className="text-base-200 cursor-pointer" onClick={handleForgotPassword}>Reset here</span>
             </p>
           </form>
         )}

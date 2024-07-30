@@ -56,7 +56,7 @@ function App() {
       <div className="font-poppins antialiased text-gray-900 bg-gray-100">
         {shouldDisplayHeaderFooter && (
           <header
-            className={`bg-purple-500 text-white py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 z-10 top-0 ${sticky ? "shadow-md bg-purple-700" : ""}`}>
+            className={`bg-base-100 text-black py-4 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 z-10 top-0 ${sticky ? "shadow-md bg-base-200" : ""}`}>
             <nav className="mx-auto flex justify-between items-center">
               <div className="flex items-center space-x-4">
                 <img
@@ -69,7 +69,7 @@ function App() {
 
               <div className="flex md:hidden">
                 <button
-                  className="text-white p-2 focus:outline-none"
+                  className="text-black p-2 focus:outline-none"
                   onClick={toggleMenu}
                 >
                   <svg
@@ -91,9 +91,9 @@ function App() {
               <div className={`md:flex flex-grow items-center justify-center ${isOpen ? 'block' : 'hidden'}`}>
                 <div className="text-white md:flex md:justify-end md:space-x-4">
                   <div className="md:flex items-center justify-end space-x-4">
-                    <Link to="/" className="block px-4 py-2 text-white font-bold">Discover What We Offer</Link>
-                    <Link to="/contact" className="block px-4 py-2 text-white font-bold">Contact Us</Link>
-                    <Link to="/faqs" className="block px-4 py-2 text-white font-bold">FAQs</Link>
+                    <Link to="/" className="block px-4 py-2 text-black font-bold hover:bg-base-200">Discover What We Offer</Link>
+                    <Link to="/contact" className="block px-4 py-2 text-black font-bold hover:bg-base-200">Contact Us</Link>
+                    <Link to="/faqs" className="block px-4 py-2 text-black font-bold hover:bg-base-200">FAQs</Link>
                   </div>
                 </div>
               </div>
