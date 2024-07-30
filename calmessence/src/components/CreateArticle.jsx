@@ -24,7 +24,7 @@ const CreateArticle = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/articles/create', article);
+            const response = await axios.post('https://csci-5709-group8.onrender.com/api/articles/create', article);
             console.log('Article created successfully:', response.data);
             // Clear the form after successful submission
             setTitle('');

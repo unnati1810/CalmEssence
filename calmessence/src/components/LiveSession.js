@@ -21,7 +21,7 @@ function LiveSession() {
 
     const fetchSessions = async (page) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/sessions/list?page=${page}&pageSize=${pageSize}`);
+            const response = await fetch(`https://csci-5709-group8.onrender.com/api/sessions/list?page=${page}&pageSize=${pageSize}`);
             const result = await response.json();
             setSessionsList(result.data);
             setPagination(result.pagination);
@@ -66,7 +66,7 @@ function LiveSession() {
                 status: "started"
             };
             try {
-                await fetch('http://localhost:8080/api/sessions/edit', {
+                await fetch('https://csci-5709-group8.onrender.com/api/sessions/edit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ function LiveSession() {
         } else {
             // Create new session
             try {
-                await fetch('http://localhost:8080/api/sessions/create', {
+                await fetch('https://csci-5709-group8.onrender.com/api/sessions/create', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
