@@ -103,7 +103,6 @@ function LiveSession() {
             setSessionDate('');
             setSessionTime('');
             setSessionLength('30');
-            alert('Form submitted successfully!');
         } catch (error) {
             console.error('Error submitting form:', error);
             toast.error('Error submitting form!');
@@ -169,6 +168,7 @@ function LiveSession() {
                                 session={session}
                                 onEdit={handleEditSession}
                                 onStart={handleStartButtonClick}
+                                user={user}
                             />
                         ))}
                     </div>

@@ -26,7 +26,7 @@ export const LiveVideo = () => {
     const isConnected = useIsConnected();
 
     // Determine user role
-    const isPublisher = loggedInUserId === session.expert_id;
+    const isPublisher = loggedInUserId == session.expert_id;
     const role = isPublisher ? 'publisher' : 'subscriber';
 
     // Fetch the token from the API using session details
@@ -113,21 +113,90 @@ export const LiveVideo = () => {
         navigate('/live-session');
     };
 
-    console.log("Remote user length "+remoteUsers.length);
-    console.log("Remote user length "+calling);
+    const expertVideoAvailable = remoteUsers.some(user => user.uid === session.expert_id);
+
     return (
-        <div className="fixed top-0 left-0 bottom-0 right-0 w-full h-full font-poppins text-gray-900 bg-gradient-to-b from-base-200 to-base-200 overflow-auto">
+        <div className="fixed top-0 left-0 bottom-0 right-0 w-full h-full font-poppins text-gray-900 bg-gradient-to-b from-base-200 to-base-200 ">
             {isPublisher && (
-                <div className="fixed top-10 left-10 bottom-10 right-10 bg-gray-200 rounded-lg p-4 z-10 overflow-auto">
-                    <LocalUser
-                        audioTrack={localMicrophoneTrack}
-                        cameraOn={cameraOn}
-                        micOn={micOn}
-                        videoTrack={localCameraTrack}
-                        cover="https://www.agora.io/en/wp-content/uploads/2022/10/3d-spatial-audio-icon.svg"
-                    >
-                        <samp className="user-name text-gray-800 font-semibold">You</samp>
-                    </LocalUser>
+                <div className="flex top-0 left-0 bottom-0 right-0 w-full h-full p-4">
+                    <div className="w-3/4 h-full rounded-lg p-4 z-10 overflow-auto">
+                        <LocalUser
+                            audioTrack={localMicrophoneTrack}
+                            cameraOn={cameraOn}
+                            micOn={micOn}
+                            videoTrack={localCameraTrack}
+                            cover="https://www.agora.io/en/wp-content/uploads/2022/10/3d-spatial-audio-icon.svg"
+                        >
+                            <samp className="user-name text-gray-800 font-semibold">You</samp>
+                        </LocalUser>
+                    </div>
+                    <div className="w-1/4 rounded-lg p-4 overflow-auto">
+                        {isPublisher && isConnected && (
+                            <div className="bg-gray-200 flex flex-col items-center space-y-4 p-4">
+                                <div className="bg-white p-8 rounded-lg shadow-md mb-4 w-full max-w-sm text-left">
+                                    <h2 className="text-xl font-semibold mb-2">Session Details</h2>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Title:</strong> {session.title}</p>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Description:</strong> {session.description}</p>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Date:</strong> {new Date(session.session_date).toLocaleDateString()}</p>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Time:</strong> {new Date(`1970-01-01T${session.session_time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Duration:</strong> {session.duration} minutes</p>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Status:</strong> {session.status.charAt(0).toUpperCase() + session.status.slice(1)}</p>
+                                    <p className="text-sm text-gray-700 mb-1"><strong>Expert Email:</strong> {session.expert_email}</p>
+                                </div>
+                                <button
+                                    id="mic-control"
+                                    className="bg-base-200 text-black p-2 rounded-lg flex items-center"
+                                    onClick={() => setMic(a => !a)}
+                                >
+                                    <i className={`i-microphone ${!micOn ? "off" : ""}`}></i>
+                                    <span className="ml-2">{micOn ? "Microphone Enabled" : "Microphone Disabled"}</span>
+                                </button>
+
+                                <button
+                                    id="camera-control"
+                                    className="bg-base-200 text-black p-2 rounded-lg flex items-center"
+                                    onClick={() => setCamera(a => !a)}
+                                >
+                                    <i className={`i-camera ${!cameraOn ? "off" : ""}`}></i>
+                                    <span className="ml-2">{cameraOn ? "Camera Enabled" : "Camera Disabled"}</span>
+                                </button>
+                                <button
+                                    id="call-control"
+                                    className={`p-2 rounded-lg ${calling ? "bg-red-600 text-white" : "bg-green-600 text-white"}`}
+                                    onClick={handleCallControl}
+                                >
+                                    {calling ? <i className="i-phone-hangup"></i> : <i className="i-mdi-phone"></i>}
+                                    <span className="ml-2">{"Close session"}</span>
+                                </button>
+                            </div>
+
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {isConnected && !expertVideoAvailable && !isPublisher && (
+                <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-800 bg-opacity-75">
+                    <div className="bg-white p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center">
+                        <p className="text-xl font-semibold text-gray-900 mb-4">Session has not started yet. Please connect after some time.</p>
+                        <div className="bg-white p-4 rounded-lg shadow-md mb-4 w-full max-w-sm text-left">
+                            <h2 className="text-xl font-semibold mb-2">Session Details</h2>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Title:</strong> {session.title}</p>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Description:</strong> {session.description}</p>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Date:</strong> {new Date(session.session_date).toLocaleDateString()}</p>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Time:</strong> {new Date(`1970-01-01T${session.session_time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Duration:</strong> {session.duration} minutes</p>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Status:</strong> {session.status.charAt(0).toUpperCase() + session.status.slice(1)}</p>
+                            <p className="text-sm text-gray-700 mb-1"><strong>Expert Email:</strong> {session.expert_email}</p>
+                        </div>
+                        <button
+                            className="bg-black text-white rounded-full py-2 px-4 shadow-md hover:bg-gray-800 transition duration-300"
+                            onClick={() => navigate('/live-session')}
+                        >
+                            Back to Live Session
+                        </button>
+                    </div>
+
                 </div>
             )}
 
@@ -145,19 +214,16 @@ export const LiveVideo = () => {
                         <div className="flex-grow">
                             <div className="bg-white shadow-md rounded-lg p-6 mb-6">
                                 <div id="user-list" className="gap-4">
-                                    {remoteUsers.length === 0 && !isPublisher && (
-                                        <div className="flex justify-center items-center h-full">
-                                            <p className="text-gray-800 font-semibold">No users have joined the call. Please wait expert to join the session.</p>
-                                        </div>
-                                    )}
                                     {remoteUsers.map((user) => (
-                                        user.uid === session.expert_id && (
+                                        user.uid == session.expert_id && (
                                             <div
                                                 className="w-[426px] h-[240px] sm:w-[640px] sm:h-[360px] md:w-[854px] md:h-[480px] lg:w-[1280px] lg:h-[720px] bg-gray-200 rounded-lg p-4"
-                                                key={user.uid}>
+                                                key={user.uid}
+                                            >
                                                 <RemoteUser
                                                     cover="https://www.agora.io/en/wp-content/uploads/2022/10/3d-spatial-audio-icon.svg"
-                                                    user={user}>
+                                                    user={user}
+                                                >
                                                     <samp className="user-name">{user.uid}</samp>
                                                 </RemoteUser>
                                             </div>
@@ -166,37 +232,9 @@ export const LiveVideo = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {isConnected && (
-                            <div className="flex justify-between mt-4 fixed bottom-10 left-10 w-full px-4">
-                                <div className="flex space-x-4">
-                                    {isPublisher && (
-                                        <>
-                                            <button id="mic-control"
-                                                    className="btn bg-base-200 text-black p-2 rounded-lg"
-                                                    onClick={() => setMic(a => !a)}>
-                                                <i className={`i-microphone ${!micOn ? "off" : ""}`}></i>
-                                            </button>
-                                            <button id="camera-control"
-                                                    className="btn bg-base-200 text-black p-2 rounded-lg"
-                                                    onClick={() => setCamera(a => !a)}>
-                                                <i className={`i-camera ${!cameraOn ? "off" : ""}`}></i>
-                                            </button>
-                                        </>
-                                    )}
-                                </div>
-                                <button id="call-control"
-                                        className={`btn p-2 rounded-lg ${calling ? "bg-red-600 text-white" : "bg-green-600 text-white"}`}
-                                        onClick={handleCallControl}>
-                                    {calling ? <i className="i-phone-hangup"></i> : <i className="i-mdi-phone"></i>}
-                                </button>
-                            </div>
-                        )}
                     </>
                 )}
             </div>
         </div>
     );
 };
-
-export default LiveVideo;
