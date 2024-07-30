@@ -194,7 +194,7 @@ const LandingPage = () => {
     ];
 
     return (
-            <div className="w-full font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200">
 
             <div className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-12 ">
                 <div className="flex flex-wrap justify-center items-center mt-16">
@@ -293,7 +293,7 @@ const ContactUs = () => {
     return (
         <div >
             <ToastContainer />
-            <div className="w-full min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full min-h-screen flex justify-center items-start p-4 pt-8 bg-gradient-to-b from-base-200 to-base-200">
             
                 <div
                     className="w-full px-3 py-2 flex flex-col lg:flex-row items-center overflow-y-auto">
@@ -456,7 +456,7 @@ const FAQs = () => {
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-start p-4 pt-24 bg-gradient-to-b from-purple-50 to-purple-100">
+        <div className="min-h-screen flex justify-center items-start p-4 pt-24 bg-gradient-to-b from-base-200 to-base-200">
             <div className="bg-white rounded-2xl items-center shadow-lg p-8 w-full sm:mx-8 md:mx-40 lg:60 xl:60 h-full">
                 <div className="py-4 w-full sm:w-1/2 items-center sm:mx-8 md:mx-40 lg:mx-60 xl:mx-60 text-center">
                     <h2 className="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>

@@ -71,7 +71,7 @@ function ArticleSearch() {
     }, [pagination.page, searchTerm]);
 
     return (
-        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="flex flex-col items-center w-full h-full">
                 <div className="w-full max-w-4xl flex justify-center items-center mb-4">
                     <label className="input input-bordered flex items-center gap-2 w-full max-w-xl">

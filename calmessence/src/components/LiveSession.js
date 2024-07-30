@@ -132,7 +132,7 @@ function LiveSession() {
 
     return (
         <div
-            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="flex justify-between items-center mb-6">
                 <div className="font-bold text-black text-xl truncate">Scheduled Session</div>
                 <div className="flex items-center">
@@ -239,7 +239,7 @@ function LiveSession() {
                             </select>
                         </div>
                         <button type="submit"
-                                className="bg-purple-500 hover:bg-purple-700 text-white w-full font-bold py-2 px-4 rounded">
+                                className="bg-base-100 hover:bg-base-200 text-black w-full font-bold py-2 px-4 rounded">
                             Submit
                         </button>
                     </form>
