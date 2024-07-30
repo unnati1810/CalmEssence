@@ -1,3 +1,5 @@
+// Author: Rameez Parkar
+
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -34,8 +36,8 @@ const MeditationPlay = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center p-4  bg-gradient-to-b from-purple-50 to-purple-100">
-            <div className="w-full bg-white rounded-3xl shadow-2xl p-4 md:p-8">
+        <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full">
                 <div className="w-full h-[30vh] md:h-[45vh] lg:h-[60vh]">
                     {selectedSession && (
                         <ReactPlayer
@@ -46,12 +48,14 @@ const MeditationPlay = () => {
                         />
                     )}
                 </div>
-                <h2 className="text-2xl font-bold mt-6">{selectedSession.title}</h2>
-                <div className="mb-4">
-                    <p className="text-lg text-gray-800"><strong>Author:</strong> {selectedSession.publisher.name}</p>
-                    <p className="text-lg text-gray-800"><strong>Rating:</strong> {selectedSession.rating_score}</p>
+                <div className='p-4'>
+                    <h2 className="text-2xl font-bold mt-6 mb-4">{selectedSession.title}</h2>
+                    <div className="mb-4">
+                        <p className="text-lg text-gray-800"><strong>Author:</strong> {selectedSession.publisher.name}</p>
+                        <p className="text-lg text-gray-800"><strong>Rating:</strong> {selectedSession.rating_score} stars</p>
+                    </div>
+                    <p className="text-gray-700 mb-4">{selectedSession.long_description}</p>
                 </div>
-                <p className="text-gray-700 mb-4">{selectedSession.long_description}</p>
             </div>
         </div>
     );

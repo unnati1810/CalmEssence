@@ -43,14 +43,14 @@ const MeditationSearch = () => {
   
     return (
       <div className="min-h-screen flex flex-col items-center p-4 pt-20 bg-gradient-to-b from-purple-50 to-purple-100">
-        <div className="w-full p-8 bg-white rounded-3xl shadow-2xl">
+        <div className="w-full p-8">
           <div className="lg:flex justify-between items-center lg:space-x-4 mb-8">
-            <h1 className="text-4xl mb-4">Meditations</h1>
+            <h1 className="text-4xl mb-4 font-bold">Meditations</h1>
             <div className="flex">
                 <input
                 type="text"
                 placeholder="Search..."
-                className="w-full px-4 py-2 mr-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
+                className="w-96 px-4 py-2 mr-2 text-gray-700 border rounded-lg focus:outline-none focus:border-purple-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 />

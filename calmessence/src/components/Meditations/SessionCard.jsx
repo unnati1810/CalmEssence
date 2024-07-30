@@ -1,3 +1,5 @@
+// Author: Rameez Parkar
+
 import PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
 
