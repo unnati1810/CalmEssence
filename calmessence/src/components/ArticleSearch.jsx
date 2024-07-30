@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ArticleCard from './ArticleCard'; // Assume you have a separate component for displaying articles
 import debounce from 'lodash/debounce';
-
+/* eslint-disable react-hooks/exhaustive-deps */
 function ArticleSearch() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
@@ -22,7 +22,7 @@ function ArticleSearch() {
         debounce(async () => {
             try {
                 setLoading(true);
-                const { data } = await axios.get('http://localhost:8080/api/articles/list', {
+                const { data } = await axios.get('https://csci-5709-group8.onrender.com/api/articles/list', {
                     params: {
                         page: pagination.page,
                         pageSize: pagination.pageSize,
@@ -71,7 +71,7 @@ function ArticleSearch() {
     }, [pagination.page, searchTerm]);
 
     return (
-        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="flex flex-col items-center w-full h-full">
                 <div className="w-full max-w-4xl flex justify-center items-center mb-4">
                     <label className="input input-bordered flex items-center gap-2 w-full max-w-xl">

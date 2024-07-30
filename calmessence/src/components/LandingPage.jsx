@@ -60,7 +60,7 @@ const LandingPage = () => {
     ];
 
     return (
-            <div className="w-full font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100">
+            <div className="w-full font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200">
 
             <div className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pt-12 ">
                 <div className="flex flex-wrap justify-center items-center mt-16">
@@ -79,7 +79,7 @@ const LandingPage = () => {
                             meditation is designed to address your unique requirements and promote overall
                             well-being.</p>
                         <button onClick={() => window.location.href = "/signup"}
-                                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                className="bg-zinc-950 hover:bg-base-300 hover:text-black text-white font-bold py-2 px-4 rounded">
                             Get Started
                         </button>
                     </section>

@@ -3,15 +3,17 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
+const sessionRoutes = require('./routes/sessionRoutes');
+const tokenRoutes = require('./routes/tokenRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 const breathingRoutes = require('./routes/breathingRoutes');
 const articleRoutes = require('./routes/articleRoutes');
+
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/breathing', breathingRoutes);
 app.use('/api/articles', articleRoutes);
-app.use('/api/auth', authRoutes);
-
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

@@ -4,6 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import Cards from './Cards';
 import debounce from 'lodash/debounce'; // Import debounce from lodash
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 function Search() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
@@ -23,7 +25,7 @@ function Search() {
         debounce(async () => {
             try {
                 setLoading(true); // Set loading to true before fetching
-                const {data} = await axios.get('http://localhost:8080/api/breathing/list', {
+                const {data} = await axios.get('https://csci-5709-group8.onrender.com/api/breathing/list', {
                     params: {
                         page: pagination.page,
                         pageSize: pagination.pageSize,
@@ -79,7 +81,7 @@ function Search() {
 
     return (
         <div
-            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-purple-50 to-purple-100 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+            className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
             <div className="flex flex-col items-center w-full h-full">
                 <div className="w-full max-w-4xl flex justify-center items-center mb-4">
                     <label className="input input-bordered flex items-center gap-2 w-full max-w-xl">
