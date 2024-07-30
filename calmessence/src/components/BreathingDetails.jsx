@@ -3,10 +3,25 @@ import {useLocation} from 'react-router-dom';
 function BreathingDetails() {
     const location = useLocation();
     const {item} = location.state || {};
-
     if (!item) {
         return <div className="p-4 text-center text-lg">No details available.</div>;
     }
+
+    const extractYouTubeId = (url) => {
+        const match = url.match(/(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/);
+        return match ? match[1] : null;
+    };
+
+    console.log("Unnati", item.content_url)
+    let steps = [];
+    let cleanedSteps = [];
+    if(item.media_type==='text'){
+        steps  = item.text_content.match(/\d+\.\s.*?(?=\d+\.\s|$)/g) || [];
+
+    // Clean content by removing the numbers and periods
+    cleanedSteps = steps.map(step => step.replace(/^\d+\.\s/, '').trim());
+    }
+    
 
     return (
         <div
@@ -49,48 +64,35 @@ function BreathingDetails() {
                                         <source src={item.content_url} type="audio/mpeg"/>
                                         Your browser does not support the audio element.
                                     </audio>
+                                    <p className="text-red-500">If the audio does not play, please check your browser or the audio file.</p>
                                 </div>
                             )}
-                            {item.media_type === 'video' && (
+                           {item.media_type === 'video' && item.content_url.includes('youtube.com') ? (
                                 <div className="space-y-4 pl-6">
-                                    <video controls className="w-full rounded-lg shadow-lg">
-                                        <source
-                                            src={"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
-                                            type="video/mp4"
-                                        />
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    <iframe
+                                        width="100%"
+                                        height="315"
+                                        src={`https://www.youtube.com/embed/${extractYouTubeId(item.content_url)}`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="w-full rounded-lg shadow-lg"
+                                    ></iframe>
+                                    <p className="text-red-500">If the video does not play, please check your browser or network settings.</p>
                                 </div>
+                            ) : (
+                                item.media_type === 'video' && (
+                                    <p className="text-red-500">Unsupported video URL.</p>
+                                )
                             )}
-                            {item.media_type === 'text' && (
-                                <ol className="space-y-4 list-decimal pl-6">
-                                    <li>
-                                        <h3 className="text-lg font-semibold">Sit comfortably</h3>
-                                        <p className="text-muted-foreground">
-                                            Find a quiet and comfortable place to sit. You can sit on a chair or
-                                            cross-legged on the floor.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <h3 className="text-lg font-semibold">Breathe deeply</h3>
-                                        <p className="text-muted-foreground">
-                                            Inhale slowly through your nose, feeling your belly expand. Exhale slowly
-                                            through your mouth, letting your belly contract.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <h3 className="text-lg font-semibold">Focus on your breath</h3>
-                                        <p className="text-muted-foreground">
-                                            Concentrate on the sensation of air moving in and out of your body. If your
-                                            mind wanders, gently bring your attention back to your breath.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <h3 className="text-lg font-semibold">Repeat for 10 minutes</h3>
-                                        <p className="text-muted-foreground">
-                                            Continue this breathing exercise for 10 minutes, taking slow, deep breaths.
-                                        </p>
-                                    </li>
+                             {item.media_type === 'text' && (
+                                <ol className="space-y-4 pl-6 list-decimal">
+                                    {cleanedSteps.map((step, index) => (
+                                        <li key={index} className="text-muted-foreground">
+                                            {step}
+                                        </li>
+                                    ))}
                                 </ol>
                             )}
                         </div>
@@ -120,6 +122,7 @@ function ClockIcon(props) {
         </svg>
     );
 }
+
 
 function MailIcon(props) {
     return (

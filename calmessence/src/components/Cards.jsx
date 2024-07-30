@@ -1,13 +1,30 @@
 import { useNavigate } from 'react-router-dom';
 
 function Cards({ item }) {
-  const videoIcon = "https://previews.123rf.com/images/fokaspokas/fokaspokas1806/fokaspokas180600649/103145238-simple-video-camera-icon-white-icon-with-shadow-on-transparent-background.jpg";
-  const textIcon = "https://static.thenounproject.com/png/24782-200.png"; // Use appropriate icon for text content
+ 
+  const videoIcon = "https://www.shutterstock.com/image-vector/video-camera-icon-trendy-flat-260nw-675488938.jpg";
+  const textIcon = "https://www.shutterstock.com/image-vector/internet-education-concept-elearning-resources-600nw-1485832811.jpg";
+  const audioIcon = "https://static.vecteezy.com/system/resources/thumbnails/007/128/172/small/audio-speaker-icon-free-vector.jpg"; 
+  
   const navigate = useNavigate();
 
   const handleCardClick = () => {
     navigate('/details', { state: { item } });
   };
+
+    // Select icon based on media type
+    const getIcon = () => {
+      switch (item.media_type) {
+        case 'video':
+          return videoIcon;
+        case 'audio':
+          return audioIcon;
+        case 'text':
+          return textIcon;
+        default:
+          return textIcon; 
+      }
+    };
 
   return (
       <div className='mt-4 my-3 p-3' onClick={handleCardClick}>
@@ -20,7 +37,7 @@ function Cards({ item }) {
                 <p>{item.duration}</p>
               </div>
               <div className="card-actions basis-1/4 justify-end">
-                <img className='rounded-full w-10' src={item.media_type === 'video' ? videoIcon : textIcon}
+                <img className='rounded-full w-10' src={getIcon()}
                      alt="Media"/>
               </div>
             </div>

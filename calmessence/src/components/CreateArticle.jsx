@@ -1,47 +1,56 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../AuthContext'; // Adjust import path as necessary
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 const CreateArticle = () => {
     const [title, setTitle] = useState('');
     const [contentHtml, setContentHtml] = useState('');
     const [image, setImage] = useState('');
-    const [userId, setUserId] = useState('');
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
     const [tags, setTags] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Add loading state
+
+    const { user } = useAuth();
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // Set loading state to true
 
+        // Prepare article data with auto-assigned user fields
         const article = {
             title,
             content_html: contentHtml,
             image,
-            user_id: userId,
-            user_name: userName,
-            user_email: userEmail,
+            user_id: user.id,
+            user_name: user.email, // You might want to use user.email or user.name
+            user_email: user.email,
             tags
         };
 
         try {
             const response = await axios.post('https://csci-5709-group8.onrender.com/api/articles/create', article);
             console.log('Article created successfully:', response.data);
+            toast.success('Article created successfully!'); // Show success toast
             // Clear the form after successful submission
             setTitle('');
             setContentHtml('');
             setImage('');
-            setUserId('');
-            setUserName('');
-            setUserEmail('');
             setTags('');
+            navigate('/articles'); // Redirect to articles page
         } catch (error) {
             console.error('Error creating article:', error);
+            toast.error('Error creating article. Please try again.'); // Show error toast
+        } finally {
+            setIsLoading(false); // Set loading state to false
         }
     };
 
     return (
-        <div>
-            <div className="font-bold text-white text-xl mt-8 truncate">Create Article</div>
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-4 md:p-8 lg:p-10 xl:p-16">
+
+            <div className="font-bold text-black text-xl ml-8 truncate">Create Article</div>
             <div className="flex flex-col md:flex-row justify-center m-8 space-y-8 md:space-y-0 md:space-x-8">
                 <div className="w-full md:w-1/2 p-8 bg-white rounded-xl overflow-hidden shadow-lg order-2 md:order-1">
                     <form className="space-y-4" onSubmit={handleFormSubmit}>
@@ -82,39 +91,6 @@ const CreateArticle = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="userId" className="block mb-1">User ID:</label>
-                            <input
-                                type="text"
-                                id="userId"
-                                name="userId"
-                                className="w-full border rounded px-3 py-2"
-                                value={userId}
-                                onChange={(e) => setUserId(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="userName" className="block mb-1">User Name:</label>
-                            <input
-                                type="text"
-                                id="userName"
-                                name="userName"
-                                className="w-full border rounded px-3 py-2"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="userEmail" className="block mb-1">User Email:</label>
-                            <input
-                                type="email"
-                                id="userEmail"
-                                name="userEmail"
-                                className="w-full border rounded px-3 py-2"
-                                value={userEmail}
-                                onChange={(e) => setUserEmail(e.target.value)}
-                            />
-                        </div>
-                        <div>
                             <label htmlFor="tags" className="block mb-1">Tags:</label>
                             <input
                                 type="text"
@@ -127,10 +103,10 @@ const CreateArticle = () => {
                         </div>
                         <button
                             type="submit"
-                            style={{ backgroundColor: '#4CAF50', color: 'white' }}
-                            className="w-full text-sm flex-1 py-2 px-4 rounded"
+                            className="w-full bg-zinc-950 hover:bg-base-300 hover:text-black text-white font-bold py-2 px-4 rounded"
+                            disabled={isLoading} // Disable button while loading
                         >
-                            Submit
+                            {isLoading ? 'Submitting...' : 'Submit'} {/* Show loader text */}
                         </button>
                     </form>
                 </div>
@@ -141,8 +117,7 @@ const CreateArticle = () => {
                             <li className="mb-2">Step 1: Fill in the title field (max 100 characters).</li>
                             <li className="mb-2">Step 2: Enter the HTML content.</li>
                             <li className="mb-2">Step 3: (Optional) Provide an image URL.</li>
-                            <li className="mb-2">Step 4: (Optional) Enter user ID, name, and email.</li>
-                            <li className="mb-2">Step 5: (Optional) Add tags (comma-separated).</li>
+                            <li className="mb-2">Step 4: (Optional) Add tags (comma-separated).</li>
                         </ol>
                     </div>
                 </div>

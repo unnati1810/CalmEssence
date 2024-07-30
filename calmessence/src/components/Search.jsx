@@ -17,7 +17,6 @@ function Search() {
         totalPages: 0
     });
     const [loading, setLoading] = useState(false); // Add loading state
-
     const navigate = useNavigate(); // Use navigate from react-router-dom
 
     // Debounce function to limit the number of API calls
@@ -34,7 +33,7 @@ function Search() {
                 });
                 setFilteredData(data.data);
                 setPagination(data.pagination);
-
+              
                 // Check if no matches found
                 setNoMatchFound(data.data.length === 0);
             } catch (error) {
@@ -101,7 +100,9 @@ function Search() {
                         </svg>
                     </label>
 
-                    <button className="btn ml-4" onClick={handleSearchClick} disabled={loading}>
+                    <button
+                        className="bg-zinc-950 text-white rounded-box ml-2 px-4 py-2 shadow-lg hover:bg-base-300 hover:text-black transition duration-300"
+                        onClick={handleSearchClick} disabled={loading}>
                         Search
                     </button>
                 </div>
@@ -127,39 +128,32 @@ function Search() {
                 {!noMatchFound && (
                     <div className="flex justify-center items-center mt-4">
                         <button
-                            className="btn mx-2"
+                            className="rounded-box p-4 shadow-lg hover:bg-base-300 hover:text-black transition duration-300"
                             onClick={() => handlePageChange(pagination.page - 1)}
                             disabled={pagination.page === 1 || loading}
                         >
-                            Previous
+                            <img src="https://cdn-icons-png.freepik.com/512/318/318477.png" alt="Previous" className="w-6 h-6" />
                         </button>
                         <span className="mx-2">
                             Page {pagination.page} of {pagination.totalPages}
                         </span>
                         <button
-                            className="btn mx-2"
+                            className="rounded-box p-4 shadow-lg hover:bg-base-300 hover:text-black transition duration-300"
                             onClick={() => handlePageChange(pagination.page + 1)}
                             disabled={pagination.page === pagination.totalPages || loading}
                         >
-                            Next
+                            <img src="https://cdn-icons-png.freepik.com/512/318/318476.png" alt="Next" className="w-6 h-6" />
                         </button>
                     </div>
                 )}
 
                 <button
-                    className="fixed bottom-10 right-10 bg-blue-500 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition duration-300"
+                    className="fixed bottom-10 right-10 bg-zinc-950 text-white rounded-full p-4 shadow-lg hover:bg-base-300 hover:text-black transition duration-300 z-10"
                     onClick={() => navigate('/create-breathing')}
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            d="M12 4.5a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V5.25A.75.75 0 0112 4.5z"/>
-                    </svg>
+                    <span className="ml-2">Create Breathing Exercise</span>
                 </button>
+
             </div>
         </div>
     );

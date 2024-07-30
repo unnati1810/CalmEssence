@@ -145,7 +145,7 @@ function LiveSession() {
                         disabled={pagination.page === 1 || fetching}
                         onClick={() => handlePageChange('prev')}
                     >
-                        Previous
+                        <img src="https://cdn-icons-png.freepik.com/512/318/318477.png" alt="Previous" className="w-6 h-6" />
                     </button>
                     <span>Page {pagination.page} of {pagination.totalPages}</span>
                     <button
@@ -153,7 +153,7 @@ function LiveSession() {
                         disabled={pagination.page === pagination.totalPages || fetching}
                         onClick={() => handlePageChange('next')}
                     >
-                        Next
+                        <img src="https://cdn-icons-png.freepik.com/512/318/318476.png" alt="Next" className="w-6 h-6" />
                     </button>
                 </div>
             </div>

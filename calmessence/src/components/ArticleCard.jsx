@@ -14,16 +14,14 @@ function ArticleCard({item}) {
     };
 
     return (
-        <div className="m-2 group relative overflow-hidden rounded-lg shadow-lg" onClick={handleCardClick}>
+        <div className="m-2 group relative overflow-hidden rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105" onClick={handleCardClick}>
             <Link to="#" className="absolute inset-0 z-10">
                 <span className="sr-only">View article</span>
             </Link>
             {!imgError ? (<img
                 src={item.image || 'https://eu.ui-avatars.com/api/?name=Article+Image&size=250'}
                 alt="Article image"
-                width={400}
-                height={300}
-                className="object-cover w-full h-56 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover w-96 h-72"
                 onError={handleError}
 
             />) : (
@@ -31,7 +29,7 @@ function ArticleCard({item}) {
                     src={'https://eu.ui-avatars.com/api/?name=Article+Image&size=250'}
                     width={400}
                     height={300}
-                    className="object-cover w-full h-56 group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover w-96 h-72"
                 />
             )
 
