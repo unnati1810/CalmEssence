@@ -89,7 +89,7 @@ const getSessionList = async (req, res) => {
         const sqlQuery = `
             SELECT *
             FROM session
-            WHERE title LIKE '%${searchTerm}%'
+            WHERE title LIKE '%${searchTerm}%' AND status != 'completed'
             ORDER BY session_date DESC
                 LIMIT ${pageSize}
             OFFSET ${offset}
@@ -100,7 +100,7 @@ const getSessionList = async (req, res) => {
         const [[{count}]] = await connection.execute(`
             SELECT COUNT(*) AS count
             FROM session
-            WHERE title LIKE ?
+            WHERE title LIKE ?  AND status != 'completed'
         `, [`%${searchTerm}%`]);
 
         res.json({
