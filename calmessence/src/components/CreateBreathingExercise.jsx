@@ -1,5 +1,9 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../AuthContext'; // Adjust import path as necessary
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useNavigate} from "react-router-dom"; // Import Toastify CSS
 
 const CreateBreathingExercise = () => {
     const [title, setTitle] = useState('');
@@ -9,13 +13,15 @@ const CreateBreathingExercise = () => {
     const [textContent, setTextContent] = useState('');
     const [mediaType, setMediaType] = useState('');
     const [contentUrl, setContentUrl] = useState('');
-    const [userId, setUserId] = useState('');
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
+    const [loading, setLoading] = useState(false); // State for loader
+    const navigate = useNavigate();
+
+    const { user } = useAuth(); // Get user data from context
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
+        // Prepare breathing exercise data with auto-assigned user fields
         const breathingExercise = {
             title,
             description,
@@ -24,14 +30,17 @@ const CreateBreathingExercise = () => {
             text_content: textContent,
             media_type: mediaType,
             content_url: contentUrl,
-            user_id: userId,
-            user_name: userName,
-            user_email: userEmail
+            user_id: user.id,
+            user_name: user.email, // You might want to use user.email or user.name
+            user_email: user.email,
         };
+
+        setLoading(true); // Show loader
 
         try {
             const response = await axios.post('https://csci-5709-group8.onrender.com/api/breathing/create', breathingExercise);
             console.log('Breathing exercise created successfully:', response.data);
+            toast.success('Breathing exercise created successfully!');
             // Clear the form after successful submission
             setTitle('');
             setDescription('');
@@ -40,17 +49,19 @@ const CreateBreathingExercise = () => {
             setTextContent('');
             setMediaType('');
             setContentUrl('');
-            setUserId('');
-            setUserName('');
-            setUserEmail('');
+            navigate('/breathing');
+
         } catch (error) {
             console.error('Error creating breathing exercise:', error);
+            toast.error('Error creating breathing exercise. Please try again.');
+        } finally {
+            setLoading(false); // Hide loader
         }
     };
 
     return (
-        <div>
-            <div className="font-bold text-white text-xl mt-8 truncate">Create Breathing Exercise</div>
+        <div className="w-full min-h-screen font-poppins antialiased text-gray-900 bg-gradient-to-b from-base-200 to-base-200 p-4 sm:p-4 md:p-8 lg:p-10 xl:p-16">
+            <div className="font-bold text-black text-xl ml-8 truncate">Create Breathing Exercise</div>
             <div className="flex flex-col md:flex-row justify-center m-8 space-y-8 md:space-y-0 md:space-x-8">
                 <div className="w-full md:w-1/2 p-8 bg-white rounded-xl overflow-hidden shadow-lg order-2 md:order-1">
                     <form className="space-y-4" onSubmit={handleFormSubmit}>
@@ -141,45 +152,12 @@ const CreateBreathingExercise = () => {
                                 onChange={(e) => setContentUrl(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="userId" className="block mb-1">User ID:</label>
-                            <input
-                                type="text"
-                                id="userId"
-                                name="userId"
-                                className="w-full border rounded px-3 py-2"
-                                value={userId}
-                                onChange={(e) => setUserId(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="userName" className="block mb-1">User Name:</label>
-                            <input
-                                type="text"
-                                id="userName"
-                                name="userName"
-                                className="w-full border rounded px-3 py-2"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="userEmail" className="block mb-1">User Email:</label>
-                            <input
-                                type="email"
-                                id="userEmail"
-                                name="userEmail"
-                                className="w-full border rounded px-3 py-2"
-                                value={userEmail}
-                                onChange={(e) => setUserEmail(e.target.value)}
-                            />
-                        </div>
                         <button
                             type="submit"
-                            style={{ backgroundColor: '#4CAF50', color: 'white' }}
-                            className="w-full text-sm flex-1 py-2 px-4 rounded"
+                            className="w-full bg-zinc-950 hover:bg-base-300 hover:text-black text-white font-bold py-2 px-4 rounded"
+                            disabled={loading} // Disable button when loading
                         >
-                            Submit
+                            {loading ? 'Submitting...' : 'Submit'} {/* Show loader text */}
                         </button>
                     </form>
                 </div>
@@ -188,13 +166,12 @@ const CreateBreathingExercise = () => {
                         <h2 className="text-s font-extrabold mb-6">Follow These Simple Steps</h2>
                         <ol className="list-decimal pl-4">
                             <li className="mb-2">Step 1: Fill in the title field (max 30 characters).</li>
-                            <li className="mb-2">Step 2: Fill in the description (max 150 characters).</li>
+                            <li className="mb-2">Step 2: Provide a description (max 150 characters).</li>
                             <li className="mb-2">Step 3: Specify the duration in minutes.</li>
                             <li className="mb-2">Step 4: (Optional) Provide an image URL.</li>
                             <li className="mb-2">Step 5: (Optional) Add text content.</li>
                             <li className="mb-2">Step 6: Select the media type.</li>
                             <li className="mb-2">Step 7: (Optional) Provide a content URL.</li>
-                            <li className="mb-2">Step 8: (Optional) Enter user ID, name, and email.</li>
                         </ol>
                     </div>
                 </div>
