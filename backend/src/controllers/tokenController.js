@@ -18,16 +18,14 @@ const generateToken = async (req, res) => {
     let roleEnum;
     if (role === 'publisher') {
         roleEnum = RtcRole.PUBLISHER;
-    } else if (role === 'subscriber') {
-        roleEnum = RtcRole.SUBSCRIBER;
     } else {
-        return res.status(400).json({ error: 'Invalid role' });
+        roleEnum = RtcRole.SUBSCRIBER;
     }
 
     try {
         const connection = getConnection();
-        const tokenWithUid = RtcTokenBuilder.RtcTokenBuilder.buildTokenWithUserAccount(
-            APP_ID, APP_CERTIFICATE, channelName, uid, roleEnum, currentTimestamp + expirationTimeInSeconds
+        const tokenWithUid = RtcTokenBuilder.RtcTokenBuilder.buildTokenWithUid(
+            APP_ID, APP_CERTIFICATE, channelName, uid, roleEnum, expirationTimeInSeconds, currentTimestamp + expirationTimeInSeconds
         );
 
         const [sessionRows] = await connection.execute('SELECT session_id FROM session WHERE agora_channel_id = ?', [channelName]);

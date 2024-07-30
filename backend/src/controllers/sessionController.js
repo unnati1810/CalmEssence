@@ -2,18 +2,18 @@ const {getConnection} = require('../models/db');
 
 // Function to create a new session
 const createSession = async (req, res) => {
-    const {title, description, session_date, session_time, expert_id, expert_email} = req.body;
+    const { title, description, session_date, session_time, duration, expert_id, expert_email } = req.body;
 
-    if (!title || !session_date || !session_time || !expert_id || !expert_email) {
-        return res.status(400).json({error: 'Missing required fields'});
+    if (!title || !session_date || !session_time || duration === undefined || !expert_id || !expert_email) {
+        return res.status(400).json({ error: 'Missing required fields' });
     }
 
     try {
         const connection = getConnection();
         const [insertResult] = await connection.execute(
-            `INSERT INTO session (title, description, session_date, session_time, expert_id, expert_email)
-             VALUES (?, ?, ?, ?, ?, ?)`,
-            [title, description, session_date, session_time, expert_id, expert_email]
+            `INSERT INTO session (title, description, session_date, session_time, duration, expert_id, expert_email)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [title, description, session_date, session_time, duration, expert_id, expert_email]
         );
 
         const sessionId = insertResult.insertId;
@@ -28,16 +28,16 @@ const createSession = async (req, res) => {
         });
     } catch (error) {
         console.error('Error creating session:', error);
-        res.status(500).json({error: 'Error creating session'});
+        res.status(500).json({ error: 'Error creating session' });
     }
 };
 
 // Function to edit an existing session
 const editSession = async (req, res) => {
-    const {session_id, title, description, session_date, session_time, actual_start_time, status} = req.body;
+    const { session_id, title, description, session_date, session_time, duration, actual_start_time, status } = req.body;
 
     if (!session_id) {
-        return res.status(400).json({error: 'Missing session_id'});
+        return res.status(400).json({ error: 'Missing session_id' });
     }
 
     try {
@@ -47,11 +47,12 @@ const editSession = async (req, res) => {
         if (description !== undefined) fieldsToUpdate.description = description;
         if (session_date !== undefined) fieldsToUpdate.session_date = session_date;
         if (session_time !== undefined) fieldsToUpdate.session_time = session_time;
+        if (duration !== undefined) fieldsToUpdate.duration = duration;
         if (actual_start_time !== undefined) fieldsToUpdate.actual_start_time = actual_start_time;
         if (status !== undefined) fieldsToUpdate.status = status;
 
         if (Object.keys(fieldsToUpdate).length === 0) {
-            return res.status(400).json({error: 'No fields to update'});
+            return res.status(400).json({ error: 'No fields to update' });
         }
 
         const setClause = Object.keys(fieldsToUpdate).map(field => `${field} = ?`).join(', ');
@@ -68,7 +69,7 @@ const editSession = async (req, res) => {
         });
     } catch (error) {
         console.error('Error updating session:', error);
-        res.status(500).json({error: 'Error updating session'});
+        res.status(500).json({ error: 'Error updating session' });
     }
 };
 
