@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use('/api/breathing', breathingRoutes);
 app.use('/api/articles', articleRoutes);
+app.use('/api/auth', authRoutes);
+
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
