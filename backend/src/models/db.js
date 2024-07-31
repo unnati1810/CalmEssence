@@ -1,5 +1,7 @@
 const mysql = require('mysql2/promise');
 const dbConfig = require('../config/dbConfig');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 let connection;
 
@@ -12,8 +14,24 @@ async function initializeConnection() {
     }
 }
 
+function initializeMongoDBConection() {
+    mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+
+    const db = mongoose.connection;
+
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function () {
+        console.log('Connected to MongoDB');
+    });
+}
+
 initializeConnection();
+initializeMongoDBConection();
 
 module.exports = {
-    getConnection: () => connection
+    mongoose,
+    getConnection: () => connection,
 };

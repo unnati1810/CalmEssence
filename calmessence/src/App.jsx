@@ -26,6 +26,8 @@ import AuthPage from './components/Signup.jsx';
 import ForgotPasswordPage from './components/ForgotPassword.jsx';
 import LiveSession from "./components/LiveSession.jsx";
 import PrivateRoute from "./components/PrivateRoute";
+import JournalCatalog from "./components/JournalCatalog.jsx";
+import Page from './components/Page.jsx';
 
 const useShouldDisplayHeaderFooter = () => {
     return true;
@@ -107,6 +109,8 @@ function App() {
                                         <NavLink to="/live-session"
                                             className={({ isActive }) => isActive ? 'bg-black rounded-box block px-4 py-2 text-white font-bold hover:bg-base-200' : 'block px-4 py-2 text-black font-bold hover:bg-base-200'}>Live
                                             Session</NavLink>
+                                        <NavLink to="/journal"
+                                            className={({ isActive }) => isActive ? 'bg-black rounded-box block px-4 py-2 text-white font-bold hover:bg-base-200' : 'block px-4 py-2 text-black font-bold hover:bg-base-200'}>Journal</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +146,8 @@ function App() {
                         />
                         <Route path="/meditations" element={<MeditationSearch />} />
                         <Route path="/meditations/:id" element={<MeditationPlay />} />
-
+                        <Route path="/journal" element={<PrivateRoute element={JournalCatalog} />} />
+                        <Route path='/page' element={<PrivateRoute element={Page} />} />
                     </Routes>
                 </main>
 
