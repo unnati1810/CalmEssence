@@ -113,7 +113,7 @@ export const LiveVideo = () => {
         navigate('/live-session');
     };
 
-    const expertVideoAvailable = remoteUsers.some(user => user.uid === session.expert_id);
+    const expertVideoAvailable = remoteUsers.some(user => user.uid == session.expert_id);
 
     return (
         <div className="fixed top-0 left-0 bottom-0 right-0 w-full h-full font-poppins text-gray-900 bg-gradient-to-b from-base-200 to-base-200 ">
@@ -176,7 +176,7 @@ export const LiveVideo = () => {
             )}
 
             {isConnected && !expertVideoAvailable && !isPublisher && (
-                <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-800 bg-opacity-75">
+                <div className="fixed inset-0 flex flex-col items-center justify-center bg-white bg-opacity-75">
                     <div className="bg-white p-8 rounded-lg shadow-lg text-center flex flex-col items-center justify-center">
                         <p className="text-xl font-semibold text-gray-900 mb-4">Session has not started yet. Please connect after some time.</p>
                         <div className="bg-white p-4 rounded-lg shadow-md mb-4 w-full max-w-sm text-left">
@@ -217,7 +217,7 @@ export const LiveVideo = () => {
                                     {remoteUsers.map((user) => (
                                         user.uid == session.expert_id && (
                                             <div
-                                                className="w-[426px] h-[240px] sm:w-[640px] sm:h-[360px] md:w-[854px] md:h-[480px] lg:w-[1280px] lg:h-[720px] bg-gray-200 rounded-lg p-4"
+                                                className="w-[426px] h-[240px] sm:w-[640px] sm:h-[360px] md:w-[854px] md:h-[480px] lg:w-[1280px] lg:h-[720px] bg-white rounded-lg p-4"
                                                 key={user.uid}
                                             >
                                                 <RemoteUser
@@ -232,9 +232,33 @@ export const LiveVideo = () => {
                                 </div>
                             </div>
                         </div>
-                    </>
+                        {!expertVideoAvailable ? (<div></div>) : (
+                            <div className="fixed top-0 bottom-0 right-0 w-1/4 h-full  rounded-lg p-4 overflow-auto">
+                                <div className="bg-white flex flex-col items-center space-y-4 p-4">
+                                    <div className="bg-white p-8 rounded-lg shadow-md mb-4 w-full max-w-sm text-left">
+                                        <h2 className="text-xl font-semibold mb-2">Session Details</h2>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Title:</strong> {session.title}</p>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Description:</strong> {session.description}</p>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Date:</strong> {new Date(session.session_date).toLocaleDateString()}</p>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Time:</strong> {new Date(`1970-01-01T${session.session_time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Duration:</strong> {session.duration} minutes</p>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Status:</strong> {session.status.charAt(0).toUpperCase() + session.status.slice(1)}</p>
+                                        <p className="text-sm text-gray-700 mb-1"><strong>Expert Email:</strong> {session.expert_email}</p>
+                                    </div>
+
+                                    <button
+                                        id="call-control"
+                                        className={`p-2 rounded-lg ${calling ? "bg-red-600 text-white" : "bg-green-600 text-white"}`}
+                                        onClick={() => navigate('/live-session')}
+                                    >   <span className="ml-2">{"Exit session"}</span>
+                                    </button>
+                                </div>
+                            </div>)
+
+                        }
+            </>
                 )}
-            </div>
         </div>
+        </div >
     );
 };
