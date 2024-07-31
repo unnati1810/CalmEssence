@@ -14,6 +14,7 @@ const Editor = ({ onChange, initialData, editable }) => {
 
     useEffect(() => {
         console.log('initialContent', initialData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
