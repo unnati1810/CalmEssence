@@ -15,7 +15,7 @@ async function initializeConnection() {
 }
 
 function initializeMongoDBConection() {
-    mongoose.connect(process.env.MONGO_URI, {
+    mongoose.connect("mongodb+srv://sidhu97ss:incorrectPassword@cluster1.2chpe4b.mongodb.net/?appName=Cluster1", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
