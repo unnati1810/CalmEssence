@@ -7,6 +7,7 @@ const tokenRoutes = require('./routes/tokenRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const breathingRoutes = require('./routes/breathingRoutes');
 const articleRoutes = require('./routes/articleRoutes');
+const blogRoutes = require('./routes/blogRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use('/api/sessions', sessionRoutes);
 app.use('/api/tokens', tokenRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/blogs', blogRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
