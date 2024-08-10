@@ -28,6 +28,9 @@ import LiveSession from "./components/LiveSession.jsx";
 import PrivateRoute from "./components/PrivateRoute";
 import JournalCatalog from "./components/JournalCatalog.jsx";
 import Page from './components/Page.jsx';
+import AboutUs from "./components/AboutUs";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsAndConditions from "./components/TermsAndConditions";
 
 const useShouldDisplayHeaderFooter = () => {
     return true;
@@ -123,7 +126,7 @@ function App() {
                 <main className="mx-auto">
                     <Routes>
                         <Route exact path="/" element={<LandingPage />} />
-                        <Route exact path="/about" element={<LandingPage />} />
+                        <Route exact path="/about" element={<AboutUs />} />
                         <Route exact path="/live-session" element={<PrivateRoute element={LiveSession} />} />
                         <Route path="/contact" element={<ContactUs />} />
                         <Route path="/faqs" element={<FAQs />} />
@@ -146,6 +149,8 @@ function App() {
                         />
                         <Route path="/meditations" element={<MeditationSearch />} />
                         <Route path="/meditations/:id" element={<MeditationPlay />} />
+                        <Route path="/policy" element={<PrivacyPolicy />} />
+                        <Route path="/terms" element={<TermsAndConditions />} />
                         <Route path="/journal" element={<PrivateRoute element={JournalCatalog} />} />
                         <Route path='/page' element={<PrivateRoute element={Page} />} />
                     </Routes>
