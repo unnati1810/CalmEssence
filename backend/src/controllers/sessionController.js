@@ -118,4 +118,32 @@ const getSessionList = async (req, res) => {
     }
 };
 
-module.exports = {createSession, editSession, getSessionList};
+
+
+// Function to handle contact form submission
+const contactUS = async (req, res) => {
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    try {
+        const connection = getConnection();
+        const [insertResult] = await connection.execute(
+            `INSERT INTO contactus (name, email, message)
+             VALUES (?, ?, ?)`,
+            [name, email, message]
+        );
+
+        res.status(200).json({
+            message: 'Message sent successfully',
+            contactId: insertResult.insertId,
+        });
+    } catch (error) {
+        console.error('Error submitting contact form:', error);
+        res.status(500).json({ error: 'Error submitting contact form' });
+    }
+};
+
+module.exports = {createSession, editSession, getSessionList, contactUS };

@@ -1,13 +1,46 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
 
 const ForgotPasswordPage = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+    setSuccessMessage(null);
+
+    try {
+      const response = await fetch('https://csci-5709-group8.onrender.com/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to reset password');
+      }
+
+      const data = await response.json();
+      setSuccessMessage(data.message);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const Label = ({ htmlFor, children, className, ...props }) => (
     <label htmlFor={htmlFor} className={`block text-sm font-medium text-gray-700 ${className}`} {...props}>
@@ -39,7 +72,7 @@ const ForgotPasswordPage = () => {
   const Button = ({ type = 'button', className, children, ...props }) => (
     <button
       type={type}
-      className={`py-2 px-4 bg-base-200 hover:bg-base-200 text-black font-bold rounded ${className}`}
+      className={`py-2 px-4 bg-base-200 hover:bg-base-300 text-black font-bold rounded ${className}`}
       {...props}
     >
       {children}
@@ -62,13 +95,22 @@ const ForgotPasswordPage = () => {
           <h2 className="text-2xl font-bold">Reset Password</h2>
           <p className="text-muted-foreground">Enter your email to reset your password.</p>
         </div>
-        <form className="grid gap-4">
+        <form className="grid gap-4" onSubmit={handleSubmit}>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="Enter your email" required />
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-          <Button type="submit" className="w-full">
-            Reset Password
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Reset Password'}
           </Button>
         </form>
         <p className="text-sm text-center mt-2">

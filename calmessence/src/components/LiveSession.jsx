@@ -249,7 +249,7 @@ function LiveSession() {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="bg-black text-white rounded-full py-2 px-4 shadow-md hover:bg-gray-800 transition duration-300 flex items-center justify-center"
+                                    className="bg-black text-white rounded  py-2 px-4 shadow-md hover:bg-gray-500 transition duration-300 flex items-center justify-center"
                                     disabled={submitting}
                                 >
                                     {submitting ? <Loader/> : 'Create Session'}

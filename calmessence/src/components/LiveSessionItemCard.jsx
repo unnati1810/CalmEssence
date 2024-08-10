@@ -1,15 +1,12 @@
 const LiveSessionItemCard = ({ session, onEdit, onStart, user }) => {
-    // Format the session date and time
     const formattedDate = new Date(session.session_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const formattedTime = new Date(`1970-01-01T${session.session_time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     // Check if the user is the expert for this session
     const isCurrentUserExpert = session.expert_id == user.id;
-// console.log("Expert"+session.expert_id);console.log("userId"+user.id);
 
     return (
         <div className="relative max-w-sm bg-white rounded-xl overflow-hidden shadow-lg">
-            {/* Conditionally render the label if the user is the expert */}
             {isCurrentUserExpert && (
                 <div className="absolute top-1 right-1 bg-gray-300 text-black text-xs font-semibold py-1 px-3 rounded-xl shadow-md">
                     You
@@ -28,17 +25,18 @@ const LiveSessionItemCard = ({ session, onEdit, onStart, user }) => {
                 </div>
                 <div className="mt-4 flex justify-between">
                     <button
-                        className="bg-base-100 hover:bg-base-200 text-black text-sm flex-1 me-1 py-2 px-4 rounded"
+                        className="bg-gray-200 text-black text-sm flex-1 mx-0.5 py-2 px-4 rounded hover:bg-gray-300"
                         onClick={() => onStart(session)}
                     >
                         Start
                     </button>
-                    <button
-                        className="bg-gray-200 text-black text-sm flex-1 py-2 px-4 rounded hover:bg-gray-300"
-                        onClick={() => onEdit(session)}
-                    >
-                        Edit
-                    </button>
+                    {isCurrentUserExpert && (
+                        <button
+                            className="bg-base-100 hover:bg-base-200 text-black text-sm flex-1 me-1 py-2 px-4 rounded"                            onClick={() => onEdit(session)}
+                        >
+                            Edit
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
